@@ -447,18 +447,24 @@ async function openTicketPdf(id){
  }
 }
 
-function bestInfo(x){const p1=+x.price1||0,p2=+x.price2||0;if(!p1&&!p2)return{which:"",text:"—"};if(p1&&(!p2||p1<p2))return{which:"1",text:(x.store1||"Loja 1")+" • "+usd(p1)};if(p2&&(!p1||p2<p1))return{which:"2",text:(x.store2||"Loja 2")+" • "+usd(p2)};return{which:"both",text:"Empate • "+usd(p1)}}
+function bestInfo(x){
+ const p1=+x.price1||0,p2=+x.price2||0;
+ if(!p1&&!p2)return{which:"",text:"—",store:"Sem comparação",price:""};
+ if(p1&&(!p2||p1<p2)){const store=x.store1||"Loja 1";return{which:"1",store,price:usd(p1),text:store+" • "+usd(p1)}}
+ if(p2&&(!p1||p2<p1)){const store=x.store2||"Loja 2";return{which:"2",store,price:usd(p2),text:store+" • "+usd(p2)}}
+ return{which:"both",store:"Empate",price:usd(p1),text:"Empate • "+usd(p1)}
+}
 function renderProducts(){
  const arr=state.products||[];
  const box=document.getElementById("pyCompactList");
  const openIds=new Set([...box.querySelectorAll("details[open][data-id]")].map(el=>el.dataset.id));
  box.innerHTML=arr.length?arr.map(x=>{
   const b=bestInfo(x),ref=(+x.compras_price||0)>0?("Compras Paraguai: "+usd(x.compras_price)):"Sem referência no Compras Paraguai";
-  return `<details class="pywish ${x.done?"done":""}" data-id="${x.id}" ${openIds.has(x.id)?"open":""}>
+  return `<details class="pywish ${x.done?"done":""}" data-id="${x.id}" ${openIds.has(x.id)?"open":""} ontoggle="keepOnlyOneProductOpen(this)">
    <summary>
     <input type="checkbox" ${x.done?"checked":""} onclick="event.stopPropagation()" onchange="editProduct('${x.id}','done',this.checked)">
-    <div><div class="py-title">${esc(x.product||"Novo produto")}</div><div class="py-sub">${esc(ref)}</div></div>
-    <div class="py-best">${b.which?`<span class="bestbadge">${esc(b.text)}</span>`:"Toque para comparar"}</div>
+    <div><div class="py-title">${esc(x.product||"Novo produto")}</div><div class="py-sub">${b.which?esc(b.store):"Sem comparação de lojas"}</div></div>
+    <div class="py-best">${b.which?`<span class="bestbadge">${esc(b.price)}</span>`:"Toque para comparar"}</div>
    </summary>
    <div class="py-edit" onclick="event.stopPropagation()">
     <div class="pyproduct-grid">
@@ -475,7 +481,24 @@ function renderProducts(){
   </details>`
  }).join(""):`<div class="notice">Nenhum produto na lista ainda.</div>`
 }
-function addPyProduct(){const x={id:uid(),trip_id:TRIP,product:"",compras_price:0,store1:"",price1:0,store2:"",price2:0,done:false,sort_order:(state.products.at(-1)?.sort_order||0)+10,updated_at:new Date().toISOString()};state.products.push(x);cache();renderProducts();upsert("paraguay_products",x,"id")}
+function keepOnlyOneProductOpen(el){
+ if(!el.open)return;
+ document.querySelectorAll("details.pywish[open]").forEach(d=>{if(d!==el)d.removeAttribute("open")});
+}
+function addPyProduct(){
+ const x={id:uid(),trip_id:TRIP,product:"",compras_price:0,store1:"",price1:0,store2:"",price2:0,done:false,sort_order:(state.products.at(-1)?.sort_order||0)+10,updated_at:new Date().toISOString()};
+ state.products.push(x);cache();
+ const box=document.getElementById("pyCompactList");
+ if(box)box.querySelectorAll("details[open]").forEach(d=>d.removeAttribute("open"));
+ renderProducts();
+ const created=document.querySelector(`details.pywish[data-id="${x.id}"]`);
+ if(created){
+   document.querySelectorAll("details.pywish[open]").forEach(d=>{if(d!==created)d.removeAttribute("open")});
+   created.setAttribute("open","");
+   setTimeout(()=>created.scrollIntoView({behavior:"smooth",block:"center"}),60);
+ }
+ upsert("paraguay_products",x,"id")
+}
 function editProduct(id,key,val){
  const x=state.products.find(p=>p.id===id);if(!x)return;
  x[key]=key==="done"?!!val:["compras_price","price1","price2"].includes(key)?parsePtNumber(val):String(val);
