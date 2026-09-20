@@ -85,6 +85,11 @@ details{border:1px solid var(--line);border-radius:14px;background:#fff;margin-t
 .py-edit{padding:0 12px 12px}
 .pyproduct-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.pyproduct-grid .wide{grid-column:1/-1}
 .pyproduct-grid input{width:100%;border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff}
+.moneyfield{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;background:#fff;overflow:hidden}
+.moneyfield span{padding:8px 0 8px 9px;font-weight:900;color:#52655a;white-space:nowrap}
+.moneyfield input{border:0!important;border-radius:0!important;background:transparent!important;padding-left:6px!important;min-width:0}
+.moneyfield.bestprice{background:var(--green)!important;border-color:var(--green-line)!important}
+.moneyfield.bestprice span,.moneyfield.bestprice input{color:#315d31;font-weight:900}
 .pyproduct-grid label{font-size:11px;font-weight:900;color:#607066}.pyproduct-grid .bestbox{grid-column:1/-1;background:#f7faf5;border-radius:11px;padding:9px}
 .ticket-file{display:flex;gap:7px;align-items:center;margin-top:8px;flex-wrap:wrap}.ticket-file small{color:var(--muted)}
 .store-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.daychoice{border:1px solid #cfe1ca;background:#fff;border-radius:999px;padding:8px 10px;font-weight:900;cursor:pointer}.daychoice.active{background:var(--sage);color:#fff;border-color:var(--sage)}
@@ -458,11 +463,11 @@ function renderProducts(){
    <div class="py-edit" onclick="event.stopPropagation()">
     <div class="pyproduct-grid">
      <label class="wide">Produto<input value="${esc(x.product)}" placeholder="Nome do produto" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','product',this.value)"></label>
-     <label>Compras Paraguai<input type="text" inputmode="decimal" autocomplete="off" value="${usd(x.compras_price)}" onfocus="typing=true;unmaskCurrency(this)" onblur="typing=false;editProduct('${x.id}','compras_price',parsePtNumber(this.value))"></label>
+     <label>Compras Paraguai<div class="moneyfield"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.compras_price,2)}" onfocus="typing=true;this.select()" onblur="typing=false;editProduct('${x.id}','compras_price',parsePtNumber(this.value))"></div></label>
      <label>Loja 1<input list="storeOptions" value="${esc(x.store1)}" placeholder="Ex.: Nissei" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','store1',this.value)"></label>
-     <label>Preço 1<input class="${b.which==="1"||b.which==="both"?"bestprice":""}" type="text" inputmode="decimal" autocomplete="off" value="${usd(x.price1)}" onfocus="typing=true;unmaskCurrency(this)" onblur="typing=false;editProduct('${x.id}','price1',parsePtNumber(this.value))"></label>
+     <label>Preço 1<div class="moneyfield ${b.which==="1"||b.which==="both"?"bestprice":""}"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.price1,2)}" onfocus="typing=true;this.select()" onblur="typing=false;editProduct('${x.id}','price1',parsePtNumber(this.value))"></div></label>
      <label>Loja 2<input list="storeOptions" value="${esc(x.store2)}" placeholder="Ex.: Cellshop" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','store2',this.value)"></label>
-     <label>Preço 2<input class="${b.which==="2"||b.which==="both"?"bestprice":""}" type="text" inputmode="decimal" autocomplete="off" value="${usd(x.price2)}" onfocus="typing=true;unmaskCurrency(this)" onblur="typing=false;editProduct('${x.id}','price2',parsePtNumber(this.value))"></label>
+     <label>Preço 2<div class="moneyfield ${b.which==="2"||b.which==="both"?"bestprice":""}"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.price2,2)}" onfocus="typing=true;this.select()" onblur="typing=false;editProduct('${x.id}','price2',parsePtNumber(this.value))"></div></label>
      <div class="bestbox"><small>Melhor preço entre as lojas cotadas</small><br>${b.which?`<span class="bestbadge">${esc(b.text)}</span>`:"Preencha os preços das lojas"}</div>
     </div>
     <button class="btn small" style="margin-top:8px;color:var(--danger)" onclick="deleteProduct('${x.id}')">Excluir item</button>
