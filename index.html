@@ -365,7 +365,9 @@ function enqueue(op){const q=qload();q.push(op);qsave(q);setSync("saving","🟡 
 async function request(path,opt={}){
   const r=await fetch(SUPA+"/rest/v1/"+path,{...opt,headers:{...H,...(opt.headers||{})}});
   if(!r.ok)throw new Error(await r.text());
-  if((opt.headers||{}).Prefer?.includes("return=representation"))return await r.json();
+  if(r.status===204)return null;
+  const type=(r.headers.get("content-type")||"").toLowerCase();
+  if(type.includes("application/json"))return await r.json();
   return null;
 }
 async function flushQueue(){
