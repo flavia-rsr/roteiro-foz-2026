@@ -386,15 +386,16 @@ function bestInfo(x){const p1=+x.price1||0,p2=+x.price2||0;if(!p1&&!p2)return{wh
 function renderProducts(){
  const arr=state.products||[];
  const box=document.getElementById("pyCompactList");
+ const openIds=new Set([...box.querySelectorAll("details[open][data-id]")].map(el=>el.dataset.id));
  box.innerHTML=arr.length?arr.map(x=>{
   const b=bestInfo(x),ref=(+x.compras_price||0)>0?("Compras Paraguai: "+usd(x.compras_price)):"Sem referência no Compras Paraguai";
-  return `<details class="pywish ${x.done?"done":""}">
+  return `<details class="pywish ${x.done?"done":""}" data-id="${x.id}" ${openIds.has(x.id)?"open":""}>
    <summary>
     <input type="checkbox" ${x.done?"checked":""} onclick="event.stopPropagation()" onchange="editProduct('${x.id}','done',this.checked)">
     <div><div class="py-title">${esc(x.product||"Novo produto")}</div><div class="py-sub">${esc(ref)}</div></div>
     <div class="py-best">${b.which?`<span class="bestbadge">${esc(b.text)}</span>`:"Toque para comparar"}</div>
    </summary>
-   <div class="py-edit">
+   <div class="py-edit" onclick="event.stopPropagation()">
     <div class="pyproduct-grid">
      <label class="wide">Produto<input value="${esc(x.product)}" placeholder="Nome do produto" onchange="editProduct('${x.id}','product',this.value)"></label>
      <label>Compras Paraguai • US$<input type="number" min="0" step=".01" value="${+x.compras_price||0}" onchange="editProduct('${x.id}','compras_price',this.value)"></label>
