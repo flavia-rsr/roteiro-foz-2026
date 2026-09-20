@@ -16,7 +16,9 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.48 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-button,input,select{font:inherit} a{color:inherit}.wrap{max-width:1080px;margin:auto}
+button,input,select{font:inherit}
+button{-webkit-tap-highlight-color:transparent}
+a{color:inherit}.wrap{max-width:1080px;margin:auto}
 .nav{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;gap:7px;overflow:auto;padding:9px 12px;scrollbar-width:none}.nav .wrap::-webkit-scrollbar{display:none}
 .nav a,.nav button{flex:0 0 auto;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-weight:850;cursor:pointer;color:var(--ink)}
@@ -90,7 +92,11 @@ details{border:1px solid var(--line);border-radius:14px;background:#fff;margin-t
 .py-source{font-size:12px;color:#647263}.py-source a{color:#4d7448}
 #pyHoursMount.on-trip{order:-1}
 @media(max-width:760px){
-  body{font-size:14px}.hero-grid{grid-template-columns:1fr;gap:14px}.photo{height:215px;max-width:none}.hero{padding-top:18px}.summary-grid{grid-template-columns:repeat(2,1fr)}
+  body{font-size:14px}
+  input,select,button{font-size:16px}
+  button,a,input,select,summary{touch-action:manipulation}
+  input,select{-webkit-appearance:none;appearance:none}
+  input[type="checkbox"]{-webkit-appearance:auto;appearance:auto}.hero-grid{grid-template-columns:1fr;gap:14px}.photo{height:215px;max-width:none}.hero{padding-top:18px}.summary-grid{grid-template-columns:repeat(2,1fr)}
   .section-head{display:block}.section-head p{margin-top:5px}.daytop{grid-template-columns:75px 1fr}.donebtn{grid-column:1/-1;justify-self:start;padding:6px 9px}
   .route-grid,.fuel-grid,.fx-grid,.stop-grid,.ticket-list,.store-list{grid-template-columns:1fr}.road-summary{grid-template-columns:repeat(3,1fr)}.fields{grid-template-columns:1fr 1fr}
   .expense{grid-template-columns:1fr 1fr 1fr 30px}.expense .expense-name{grid-column:1/-1}.exp-summary{grid-template-columns:1fr 1fr}#map{height:340px}
@@ -170,13 +176,13 @@ details{border:1px solid var(--line);border-radius:14px;background:#fff;margin-t
   </div>
 
   <div style="height:18px"></div><div class="panel"><h3>Estimativa de gasolina • Honda Fit 2016</h3>
-  <div class="fields" style="margin-top:10px"><label class="field">Consumo (km/L)<input id="consumption" type="number" min="4" max="30" step=".1"></label><label class="field">Gasolina (R$/L)<input id="fuelPrice" type="number" min="0" step=".01"></label><label class="field">Km locais extras<input id="localKm" type="number" min="0" step="10"></label></div>
+  <div class="fields" style="margin-top:10px"><label class="field">Consumo (km/L)<input id="consumption" type="number" inputmode="decimal" min="4" max="30" step=".1"></label><label class="field">Gasolina (R$/L)<input id="fuelPrice" type="number" inputmode="decimal" min="0" step=".01"></label><label class="field">Km locais extras<input id="localKm" type="number" inputmode="numeric" min="0" step="10"></label></div>
   <div class="fuel-grid" style="margin-top:10px"><div class="result"><span>Combustível estimado</span><b id="fuelTotal">—</b><small id="fuelLiters"></small></div><div class="result"><span>Gasolina + pedágios</span><b id="roadTotal">—</b><small>estimativa da viagem</small></div></div></div>
 </div></section>
 
 <section id="peso"><div class="wrap">
   <div class="section-head"><div><div class="eyebrow">Argentina</div><h2>Calculadora de peso argentino</h2></div><p>Informe o valor da compra e quantos pesos a loja considera por R$ 1.</p></div>
-  <div class="calc-card"><div class="calc-row"><label class="field">Valor da compra (ARS)<input id="arsAmount" type="number" min="0" step=".01"></label><label class="field">Cotação: ARS por R$ 1<input id="arsRate" type="number" min="0" step=".01"></label></div><div class="calc-total"><span>Total em reais</span><b id="arsTotal">R$ 0,00</b></div></div>
+  <div class="calc-card"><div class="calc-row"><label class="field">Valor da compra (ARS)<input id="arsAmount" type="number" inputmode="decimal" min="0" step=".01"></label><label class="field">Cotação: ARS por R$ 1<input id="arsRate" type="number" inputmode="decimal" min="0" step=".01"></label></div><div class="calc-total"><span>Total em reais</span><b id="arsTotal">R$ 0,00</b></div></div>
 </div></section>
 
 <section id="gastos" class="alt"><div class="wrap">
@@ -203,7 +209,7 @@ details{border:1px solid var(--line);border-radius:14px;background:#fff;margin-t
 
   <section id="pyCalc"><div class="wrap">
     <div class="section-head"><div><div class="eyebrow" style="color:#52744c">Cotação da loja</div><h2>Calculadora de dólar</h2></div><p>A cotação varia de estabelecimento para estabelecimento. Digitem exatamente a cotação informada na loja.</p></div>
-    <div class="calc-card"><div class="calc-row"><label class="field">Valor da compra (US$)<input id="usdAmount" type="number" min="0" step=".01"></label><label class="field">Cotação: R$ por US$ 1<input id="usdRate" type="number" min="0" step=".0001"></label></div><div class="calc-total" style="background:var(--sage2)"><span>Total em reais</span><b id="usdTotal" style="color:#42623e">R$ 0,00</b></div></div>
+    <div class="calc-card"><div class="calc-row"><label class="field">Valor da compra (US$)<input id="usdAmount" type="number" inputmode="decimal" min="0" step=".01"></label><label class="field">Cotação: R$ por US$ 1<input id="usdRate" type="number" min="0" step=".0001"></label></div><div class="calc-total" style="background:var(--sage2)"><span>Total em reais</span><b id="usdTotal" style="color:#42623e">R$ 0,00</b></div></div>
   </div></section>
 
   <div id="pyDynamicArea" style="display:flex;flex-direction:column">
@@ -319,7 +325,7 @@ function readSettings(){const s=state.settings;const g=id=>document.getElementBy
 function calcMoney(){const s=state.settings;const u=document.getElementById("usdTotal"),a=document.getElementById("arsTotal");if(u)u.textContent=brl((+s.usd_amount||0)*(+s.usd_rate||0));if(a)a.textContent=brl((+s.ars_rate||0)>0?(+s.ars_amount||0)/(+s.ars_rate):0)}
 function calcFuel(){const s=state.settings,km=1886+(+s.local_km||0),c=+s.consumption||14.1,l=km/c,cost=l*(+s.fuel_price||0);document.getElementById("fuelTotal").textContent=brl(cost);document.getElementById("roadTotal").textContent=brl(cost+306);document.getElementById("fuelLiters").textContent=l.toFixed(1).replace(".",",")+" L estimados • "+km.toLocaleString("pt-BR")+" km"}
 
-function renderExpenses(){const arr=state.expenses||[];document.getElementById("expenseList").innerHTML=arr.length?arr.map(x=>`<div class="expense"><input class="expense-name" value="${esc(x.item)}" placeholder="Gasto" onfocus="typing=true" onblur="typing=false;editExpense('${x.id}','item',this.value)"><select onchange="editExpense('${x.id}','payer',this.value)"><option ${x.payer==="Flávia"?"selected":""}>Flávia</option><option ${x.payer==="Marina"?"selected":""}>Marina</option></select><input type="number" min="0" step=".01" value="${Number(x.amount||0)}" onchange="editExpense('${x.id}','amount',this.value)"><button class="iconbtn" onclick="deleteExpense('${x.id}')">✕</button></div>`).join(""):`<div class="notice">Nenhum gasto registrado ainda.</div>`;const total=arr.reduce((a,x)=>a+(+x.amount||0),0),fp=arr.filter(x=>x.payer==="Flávia").reduce((a,x)=>a+(+x.amount||0),0),mp=total-fp,half=total/2,diff=fp-half;document.getElementById("expenseTotal").textContent=brl(total);document.getElementById("flaviaPaid").textContent=brl(fp);document.getElementById("marinaPaid").textContent=brl(mp);document.getElementById("settlement").textContent=brl(Math.abs(diff));document.getElementById("settlementWho").textContent=Math.abs(diff)<.01?"equilibrado":diff>0?"Marina → Flávia":"Flávia → Marina"}
+function renderExpenses(){const arr=state.expenses||[];document.getElementById("expenseList").innerHTML=arr.length?arr.map(x=>`<div class="expense"><input class="expense-name" value="${esc(x.item)}" placeholder="Gasto" onfocus="typing=true" onblur="typing=false;editExpense('${x.id}','item',this.value)"><select onchange="editExpense('${x.id}','payer',this.value)"><option ${x.payer==="Flávia"?"selected":""}>Flávia</option><option ${x.payer==="Marina"?"selected":""}>Marina</option></select><input type="number" inputmode="decimal" min="0" step=".01" value="${Number(x.amount||0)}" onchange="editExpense('${x.id}','amount',this.value)"><button class="iconbtn" onclick="deleteExpense('${x.id}')">✕</button></div>`).join(""):`<div class="notice">Nenhum gasto registrado ainda.</div>`;const total=arr.reduce((a,x)=>a+(+x.amount||0),0),fp=arr.filter(x=>x.payer==="Flávia").reduce((a,x)=>a+(+x.amount||0),0),mp=total-fp,half=total/2,diff=fp-half;document.getElementById("expenseTotal").textContent=brl(total);document.getElementById("flaviaPaid").textContent=brl(fp);document.getElementById("marinaPaid").textContent=brl(mp);document.getElementById("settlement").textContent=brl(Math.abs(diff));document.getElementById("settlementWho").textContent=Math.abs(diff)<.01?"equilibrado":diff>0?"Marina → Flávia":"Flávia → Marina"}
 function addExpense(){const x={id:uid(),trip_id:TRIP,item:"",payer:"Flávia",amount:0,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};state.expenses.push(x);cache();renderExpenses();upsert("trip_expenses",x,"id")}
 function editExpense(id,key,val){const x=state.expenses.find(e=>e.id===id);if(!x)return;x[key]=key==="amount"?+val||0:val;x.updated_at=new Date().toISOString();cache();renderExpenses();upsert("trip_expenses",x,"id")}
 function deleteExpense(id){state.expenses=state.expenses.filter(e=>e.id!==id);cache();renderExpenses();removeRow("trip_expenses","id=eq."+id+"&trip_id=eq."+TRIP)}
@@ -371,15 +377,23 @@ async function uploadTicketPdf(id,input){
  finally{input.value=""}
 }
 async function openTicketPdf(id){
- const pin=await unlockTicketPdfs();if(!pin)return;
+ const popup=window.open("about:blank","_blank");
+ const pin=await unlockTicketPdfs();
+ if(!pin){if(popup)popup.close();return}
  setSync("saving","🟡 Abrindo ingresso…");
  try{
   const r=await fetch(TICKET_FN+"?action=signed-url&ticket_id="+encodeURIComponent(id),{headers:{"x-trip-pin":pin}});
   const data=await r.json().catch(()=>({}));
   if(r.status===401){localStorage.removeItem(PDF_PIN_KEY);updatePdfAccessStatus();throw new Error("Código inválido")}
   if(!r.ok||!data.url)throw new Error(data.error||"PDF indisponível");
-  window.open(data.url,"_blank","noopener");setSync("ok","🟢 Sincronizado")
- }catch(e){setSync("offline","🔴 Falha ao abrir PDF");alert(e.message||"Não foi possível abrir o ingresso.")}
+  if(popup)popup.location.href=data.url;
+  else window.location.href=data.url;
+  setSync("ok","🟢 Sincronizado")
+ }catch(e){
+  if(popup)popup.close();
+  setSync("offline","🔴 Falha ao abrir PDF");
+  alert(e.message||"Não foi possível abrir o ingresso.");
+ }
 }
 
 function bestInfo(x){const p1=+x.price1||0,p2=+x.price2||0;if(!p1&&!p2)return{which:"",text:"—"};if(p1&&(!p2||p1<p2))return{which:"1",text:(x.store1||"Loja 1")+" • "+usd(p1)};if(p2&&(!p1||p2<p1))return{which:"2",text:(x.store2||"Loja 2")+" • "+usd(p2)};return{which:"both",text:"Empate • "+usd(p1)}}
@@ -397,12 +411,12 @@ function renderProducts(){
    </summary>
    <div class="py-edit" onclick="event.stopPropagation()">
     <div class="pyproduct-grid">
-     <label class="wide">Produto<input value="${esc(x.product)}" placeholder="Nome do produto" onchange="editProduct('${x.id}','product',this.value)"></label>
-     <label>Compras Paraguai • US$<input type="number" min="0" step=".01" value="${+x.compras_price||0}" onchange="editProduct('${x.id}','compras_price',this.value)"></label>
-     <label>Loja 1<input list="storeOptions" value="${esc(x.store1)}" placeholder="Ex.: Nissei" onchange="editProduct('${x.id}','store1',this.value)"></label>
-     <label>Preço 1 • US$<input class="${b.which==="1"||b.which==="both"?"bestprice":""}" type="number" min="0" step=".01" value="${+x.price1||0}" onchange="editProduct('${x.id}','price1',this.value)"></label>
-     <label>Loja 2<input list="storeOptions" value="${esc(x.store2)}" placeholder="Ex.: Cellshop" onchange="editProduct('${x.id}','store2',this.value)"></label>
-     <label>Preço 2 • US$<input class="${b.which==="2"||b.which==="both"?"bestprice":""}" type="number" min="0" step=".01" value="${+x.price2||0}" onchange="editProduct('${x.id}','price2',this.value)"></label>
+     <label class="wide">Produto<input value="${esc(x.product)}" placeholder="Nome do produto" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','product',this.value)"></label>
+     <label>Compras Paraguai • US$<input type="number" inputmode="decimal" min="0" step=".01" value="${+x.compras_price||0}" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','compras_price',this.value)"></label>
+     <label>Loja 1<input list="storeOptions" value="${esc(x.store1)}" placeholder="Ex.: Nissei" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','store1',this.value)"></label>
+     <label>Preço 1 • US$<input class="${b.which==="1"||b.which==="both"?"bestprice":""}" type="number" inputmode="decimal" min="0" step=".01" value="${+x.price1||0}" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','price1',this.value)"></label>
+     <label>Loja 2<input list="storeOptions" value="${esc(x.store2)}" placeholder="Ex.: Cellshop" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','store2',this.value)"></label>
+     <label>Preço 2 • US$<input class="${b.which==="2"||b.which==="both"?"bestprice":""}" type="number" inputmode="decimal" min="0" step=".01" value="${+x.price2||0}" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','price2',this.value)"></label>
      <div class="bestbox"><small>Melhor preço entre as lojas cotadas</small><br>${b.which?`<span class="bestbadge">${esc(b.text)}</span>`:"Preencha os preços das lojas"}</div>
     </div>
     <button class="btn small" style="margin-top:8px;color:var(--danger)" onclick="deleteProduct('${x.id}')">Excluir item</button>
@@ -411,7 +425,13 @@ function renderProducts(){
  }).join(""):`<div class="notice">Nenhum produto na lista ainda.</div>`
 }
 function addPyProduct(){const x={id:uid(),trip_id:TRIP,product:"",compras_price:0,store1:"",price1:0,store2:"",price2:0,done:false,sort_order:(state.products.at(-1)?.sort_order||0)+10,updated_at:new Date().toISOString()};state.products.push(x);cache();renderProducts();upsert("paraguay_products",x,"id")}
-function editProduct(id,key,val){const x=state.products.find(p=>p.id===id);if(!x)return;x[key]=key==="done"?!!val:["compras_price","price1","price2"].includes(key)?+val||0:String(val);x.updated_at=new Date().toISOString();cache();renderProducts();upsert("paraguay_products",x,"id")}
+function editProduct(id,key,val){
+ const x=state.products.find(p=>p.id===id);if(!x)return;
+ x[key]=key==="done"?!!val:["compras_price","price1","price2"].includes(key)?+val||0:String(val);
+ x.updated_at=new Date().toISOString();cache();upsert("paraguay_products",x,"id");
+ if(key==="done")renderProducts();
+ else setTimeout(()=>{if(!typing)renderProducts()},120);
+}
 function deleteProduct(id){state.products=state.products.filter(p=>p.id!==id);cache();renderProducts();removeRow("paraguay_products","id=eq."+id+"&trip_id=eq."+TRIP)}
 
 function selectStoreDay(day){storeDay=day;renderStores()}
