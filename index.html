@@ -326,11 +326,11 @@ h3{font-weight:750}
 .diary-delete{border:0;background:transparent;color:#a1a7aa;font-size:18px;cursor:pointer}
 .diary-category{display:inline-block;margin-top:9px;background:#faf6f7;color:#795661;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:850}
 .diary-body{margin:8px 0 0;line-height:1.52;color:#3c4850;white-space:normal}
-.diary-photos{display:grid;gap:4px;margin-top:10px;border-radius:14px;overflow:hidden}.diary-photos button{border:0;padding:0;background:#eee;cursor:pointer;min-height:120px;overflow:hidden}.diary-photos img{width:100%;height:100%;display:block;object-fit:cover}
-.diary-photos.n1{grid-template-columns:1fr}.diary-photos.n1 button{max-height:520px}.diary-photos.n2{grid-template-columns:1fr 1fr}.diary-photos.n3,.diary-photos.n4,.diary-photos.n5{grid-template-columns:1fr 1fr}.diary-photos.n3 button:first-child{grid-row:span 2}.diary-photos.n5 button:first-child{grid-row:span 2}
+.diary-photos{display:grid;gap:4px;margin-top:10px;border-radius:14px;overflow:hidden}.diary-photos img{width:100%;height:100%;display:block;object-fit:cover}
+.diary-photos.n1{grid-template-columns:1fr}.diary-photos.n2{grid-template-columns:1fr 1fr}.diary-photos.n3,.diary-photos.n4,.diary-photos.n5{grid-template-columns:1fr 1fr}
 .diary-post-actions{display:flex;justify-content:flex-end;margin-top:9px}.diary-post-actions button{border:0;background:transparent;color:#8c737a;font-size:10px;font-weight:850;cursor:pointer}.diary-post-actions button.active{color:#b94e6d}
 .diary-empty{padding:22px;text-align:center;background:#fff;border:1px dashed #d9dcda;border-radius:15px;color:var(--muted);font-size:11px}.diary-empty.small{padding:12px}
-.diary-post.compact{box-shadow:none;border-radius:14px;padding:10px}.diary-post.compact .diary-avatar{width:31px;height:31px;font-size:11px}.diary-post.compact .diary-category{margin-top:6px}.diary-post.compact .diary-body{font-size:11px;margin-top:6px}.diary-post.compact .diary-photos{max-height:180px}.diary-post.compact .diary-photos button{min-height:80px}
+.diary-post.compact{box-shadow:none;border-radius:14px;padding:10px}.diary-post.compact .diary-avatar{width:31px;height:31px;font-size:11px}.diary-post.compact .diary-category{margin-top:6px}.diary-post.compact .diary-body{font-size:11px;margin-top:6px}.diary-post.compact .diary-photos{max-height:180px}
 .day-memory-card{border:1px solid rgba(58,74,84,.10)}.day-diary-preview{display:grid;gap:7px}.day-diary-locked{display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(255,255,255,.7);border-radius:12px;padding:10px;font-size:11px}
 .diary-lightbox{position:fixed;z-index:9999;inset:0;background:rgba(12,16,20,.92);align-items:center;justify-content:center;padding:18px}.diary-lightbox img{max-width:96vw;max-height:90vh;object-fit:contain;border-radius:8px}.diary-lightbox button{position:absolute;right:16px;top:16px;border:0;background:rgba(255,255,255,.16);color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer}
 @media(max-width:650px){
@@ -452,6 +452,52 @@ h3{font-weight:750}
 #mainPage #presentes,
 #mainPage #estrada{
   transition:background-color .2s ease;
+}
+
+
+/* ===== V31 • diário exportável + câmera + reservas de hotel ===== */
+.diary-pdf-mini{
+  margin-top:7px;
+  border:0;
+  background:transparent;
+  color:var(--rose);
+  padding:2px 0;
+  font-size:10px;
+  font-weight:900;
+  text-decoration:underline;
+  text-underline-offset:2px;
+  cursor:pointer;
+}
+.diary-pdf-mini:disabled{opacity:.55;cursor:wait}
+.diary-photo-cell{position:relative;min-height:120px;overflow:hidden;background:#eee}
+.diary-photo-open{width:100%;height:100%;border:0!important;padding:0!important;background:#eee;cursor:pointer;display:block}
+.diary-photo-download{position:absolute;right:7px;bottom:7px;width:34px;height:34px;min-height:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.94)!important;box-shadow:0 3px 12px rgba(0,0,0,.18);font-size:16px;display:grid;place-items:center;z-index:3}
+.diary-photos.n1 .diary-photo-cell{max-height:520px}
+.diary-photos.n3 .diary-photo-cell:first-child,.diary-photos.n5 .diary-photo-cell:first-child{grid-row:span 2}
+.diary-post.compact .diary-photo-cell{min-height:80px}
+.diary-post.compact .diary-photo-download{display:none}
+
+.hotel-card{background:rgba(255,255,255,.92);border:1px solid rgba(38,55,66,.10);border-radius:16px;padding:13px}
+.hotel-card-head{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.hotel-card-head p{margin:4px 0 0;color:var(--muted);font-size:11px}
+.hotel-attachment-list{display:grid;gap:7px;margin-top:10px}
+.hotel-file{display:flex;align-items:center;gap:9px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px}
+.hotel-file-icon{width:34px;height:34px;border-radius:10px;background:#fff0f4;display:grid;place-items:center;flex:0 0 auto}
+.hotel-file-info{min-width:0;flex:1}
+.hotel-file-info b{display:block;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+.hotel-file-info small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.hotel-file-actions{display:flex;gap:5px;flex-wrap:wrap}
+.hotel-file-actions .btn{padding:6px 8px;font-size:10px}
+.hotel-upload-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.hotel-upload-row small{color:var(--muted);font-size:10px}
+.hotel-summary-pill{display:inline-block;margin-top:5px;background:#f4eef0;border-radius:999px;padding:3px 6px;font-size:9px;font-weight:900;color:#7a5560}
+
+.viewer-mode #dayHotelSection,.viewer-mode #pyHotelSection{display:none!important}
+
+@media(max-width:650px){
+ .hotel-card-head{display:block}
+ .hotel-file{align-items:flex-start}
+ .hotel-file-actions{justify-content:flex-end}
 }
 
 </style>
@@ -661,7 +707,11 @@ h3{font-weight:750}
   </div></header>
   <section id="diario"><div class="wrap">
   <div class="section-head">
-    <div><div class="eyebrow">Nossa lembrança ❤️</div><h2>Nosso Diário</h2></div>
+    <div>
+      <div class="eyebrow">Nossa lembrança ❤️</div>
+      <h2>Nosso Diário</h2>
+      <button id="diaryPdfBtn" class="diary-pdf-mini" type="button" onclick="downloadDiaryPdf()">↓ Baixar diário em PDF</button>
+    </div>
     <p>Notas, dicas, fotos, momentos favoritos e perrengues que queremos guardar desta viagem.</p>
   </div>
 
@@ -704,8 +754,10 @@ h3{font-weight:750}
       <textarea id="diaryText" class="diary-textarea" maxlength="4000" placeholder="Ex.: A trilha estava tranquila, mas a roupa extra salvou a gente 😂"></textarea>
 
       <div class="diary-photo-row">
-        <input id="diaryPhotos" type="file" accept="image/*" multiple style="display:none" onchange="updateDiaryPhotoLabel()">
-        <button class="btn" type="button" onclick="document.getElementById('diaryPhotos').click()">📷 Adicionar fotos</button>
+        <input id="diaryPhotos" type="file" accept="image/*" multiple style="display:none" onchange="queueDiaryFiles(this)">
+        <input id="diaryCamera" type="file" accept="image/*" capture="environment" style="display:none" onchange="queueDiaryFiles(this)">
+        <button class="btn" type="button" onclick="document.getElementById('diaryPhotos').click()">🖼️ Galeria</button>
+        <button class="btn" type="button" onclick="document.getElementById('diaryCamera').click()">📸 Tirar foto</button>
         <span id="diaryPhotoLabel">Até 5 fotos</span>
         <button id="diaryPublishBtn" class="btn primary diary-publish" type="button" onclick="publishDiaryPost()">Publicar ❤️</button>
       </div>
@@ -743,6 +795,21 @@ h3{font-weight:750}
   <main class="daypage-body"><div class="wrap">
     <div id="dayReminder"></div>
     <section class="dayblock"><div class="section-head compact"><div><div class="eyebrow">Plano do dia</div><h2>Resumo rápido</h2></div></div><div id="dayTimeline" class="daytimeline"></div></section>
+    <section id="dayHotelSection" class="dayblock" style="display:none">
+      <div class="section-head compact">
+        <div><div class="eyebrow">Hospedagem</div><h2>🏨 Reserva do hotel</h2></div>
+        <p>Guardem aqui PDF, print ou imagem da reserva. É possível anexar mais de um arquivo.</p>
+      </div>
+      <div class="hotel-card">
+        <div class="hotel-card-head"><div><b id="dayHotelName"></b><p id="dayHotelPeriod"></p></div></div>
+        <div id="dayHotelAttachments" class="hotel-attachment-list"></div>
+        <div class="hotel-upload-row">
+          <input id="dayHotelFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple style="display:none" onchange="uploadHotelAttachments(currentDayKey,this,'dayHotelAttachments')">
+          <button class="btn primary" type="button" onclick="document.getElementById('dayHotelFiles').click()">＋ Adicionar anexo</button>
+          <small>PDF ou imagem • até 10 MB por arquivo</small>
+        </div>
+      </div>
+    </section>
     <section id="dayTicketSection" class="dayblock" style="display:none">
       <div class="section-head compact"><div><div class="eyebrow">Acesso rápido</div><h2>Ingressos</h2></div><p>PDF da Flávia + PDF da Marina.</p></div>
       <div class="ticket-unlock"><button class="btn small" onclick="unlockTicketPdfs(true)">🔐 Liberar PDFs</button><span id="dayPdfStatus"></span></div>
@@ -826,6 +893,22 @@ h3{font-weight:750}
     <div id="purchaseSummary"></div>
   </div></section>
 
+  <section id="pyHotelSection" class="alt" style="display:none"><div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">Hospedagem</div><h2>🏨 Reserva do hotel</h2></div>
+      <p>Reserva do Luz Hotel para a estadia em Foz.</p>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-card-head"><div><b>Luz Hotel by Castelo Itaipava</b><p>27/09 → 02/10 • check-in a partir de 14h • check-out até 11h</p></div></div>
+      <div id="pyHotelAttachments" class="hotel-attachment-list"></div>
+      <div class="hotel-upload-row">
+        <input id="pyHotelFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple style="display:none" onchange="uploadHotelAttachments('2026-09-27',this,'pyHotelAttachments')">
+        <button class="btn green" type="button" onclick="document.getElementById('pyHotelFiles').click()">＋ Adicionar anexo</button>
+        <small>PDF ou imagem • até 10 MB por arquivo</small>
+      </div>
+    </div>
+  </div></section>
+
   <section id="pyDayChecklistSection" class="alt" style="display:none"><div class="wrap">
     <div class="section-head">
       <div><div class="eyebrow">Para resolver</div><h2>✅ Checklist deste dia</h2></div>
@@ -862,14 +945,16 @@ h3{font-weight:750}
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const SUPA="https://kvekciggftvhjejcrrlg.supabase.co",KEY="sb_publishable_dR8BfGTacJuLQT64DvNlfg_wf3Asndy",TRIP="a4f3b6d2-7e51-4b87-9c62-2f3d8a1e5c90";
 const AUTH_FN=SUPA+"/functions/v1/trip-auth-bootstrap";
 const TICKET_FN=SUPA+"/functions/v1/trip-ticket-pdf-auth";
 const DIARY_FN=SUPA+"/functions/v1/trip-diary-auth";
 const DIARY_VIEW_FN=SUPA+"/functions/v1/trip-diary-view";
+const ATTACH_FN=SUPA+"/functions/v1/trip-day-attachments-auth";
 const AUTH_STORE="foz_auth_session_v1",LAST_USER_STORE="foz_last_auth_user";
-const CACHE="foz_shared_v30",QUEUE="foz_ops_v30";
+const CACHE="foz_shared_v32",QUEUE="foz_ops_v32";
 let authData=null,authRole="",authName="",appStarted=false,pollTimer=null;
 let H={apikey:KEY,Authorization:"Bearer "+KEY,"Content-Type":"application/json"};
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -1083,7 +1168,7 @@ function applyAccessMode(){
   "addPyProduct","editProduct","deleteProduct","togglePurchased",
   "addDayChecklist","toggleDayChecklist","editDayChecklist","deleteDayChecklist",
   "addTicketForDay","editTicket","deleteTicket","uploadTicketPdf",
-  "publishDiaryPost","toggleDiaryFavorite","deleteDiaryPost","selectDiaryAuthor"
+  "publishDiaryPost","toggleDiaryFavorite","deleteDiaryPost","selectDiaryAuthor","uploadHotelAttachments","deleteHotelAttachment"
  ];
 
  document.querySelectorAll("button[onclick]").forEach(btn=>{
@@ -1097,7 +1182,7 @@ function applyAccessMode(){
 
 const uid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0,v=c==="x"?r:(r&3|8);return v.toString(16)});
 let state={items:[],days:[],dayChecklist:[],expenses:[],products:[],tickets:[],settings:{usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200}};
-let diaryPosts=[],diaryUnlocked=false,diaryFilter="all",diaryAuthor=localStorage.getItem("foz_diary_author")||"",diaryDraftDay="";
+let diaryPosts=[],diaryUnlocked=false,diaryFilter="all",diaryAuthor=localStorage.getItem("foz_diary_author")||"",diaryDraftDay="",diaryQueuedFiles=[];
 
 let pollBusy=false,queueBusy=false,typing=false,storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
 
@@ -1121,6 +1206,13 @@ const ITIN=[
 {key:"2026-10-03",date:"SÁB • 03/10",title:"Curitiba → Florianópolis",text:"Último trecho da viagem ❤️",tags:["~303 km","~4h15","saída sugerida 08h–09h"]}
 ];
 
+
+const HOTEL_STAYS={
+ "2026-09-25":{name:"Hotel em Curitiba",period:"25/09 → 26/09 • hospedagem a definir"},
+ "2026-09-26":{name:"Pousada Nanai",period:"26/09 → 27/09 • check-in 14h–20h • check-out até 10h"},
+ "2026-09-27":{name:"Luz Hotel by Castelo Itaipava",period:"27/09 → 02/10 • check-in a partir de 14h • check-out até 11h"},
+ "2026-10-02":{name:"Hotel em Curitiba",period:"02/10 → 03/10 • hospedagem a definir"}
+};
 
 const DAY_DETAILS={
  "2026-09-25":{theme:"theme-road1",timeline:[["08h–09h","Saída de Florianópolis"],["Durante o trajeto","Pausa planejada em Garuva"],["Fim da tarde","Chegada em Curitiba • hotel a definir"]],road:{km:"~303 km",time:"~4h15",toll:"~R$ 23,60",map:"https://www.google.com/maps/dir/?api=1&origin=Florianopolis%2C+SC&destination=Curitiba%2C+PR&travelmode=driving"}},
@@ -1295,11 +1387,28 @@ function selectDiaryAuthor(author){
  document.getElementById("diaryAuthorFlavia")?.classList.toggle("active",author==="flavia");
  document.getElementById("diaryAuthorMarina")?.classList.toggle("active",author==="marina")
 }
+function queueDiaryFiles(input){
+ const incoming=[...(input?.files||[])];
+ if(!incoming.length)return;
+ const room=Math.max(0,5-diaryQueuedFiles.length);
+ if(!room){alert("O limite é de 5 fotos por publicação.");input.value="";return}
+ diaryQueuedFiles.push(...incoming.slice(0,room));
+ if(incoming.length>room)alert(`O limite é de 5 fotos. ${incoming.length-room} ${incoming.length-room===1?"foto não foi adicionada":"fotos não foram adicionadas"}.`);
+ input.value="";
+ updateDiaryPhotoLabel()
+}
+function clearDiaryQueuedFiles(){
+ diaryQueuedFiles=[];
+ const gallery=document.getElementById("diaryPhotos"),camera=document.getElementById("diaryCamera");
+ if(gallery)gallery.value="";
+ if(camera)camera.value="";
+ updateDiaryPhotoLabel()
+}
 function updateDiaryPhotoLabel(){
- const files=[...(document.getElementById("diaryPhotos")?.files||[])];
  const label=document.getElementById("diaryPhotoLabel");
  if(!label)return;
- label.textContent=files.length?`${Math.min(files.length,5)} ${files.length===1?"foto selecionada":"fotos selecionadas"}${files.length>5?" • serão usadas só 5":""}`:"Até 5 fotos"
+ const n=diaryQueuedFiles.length;
+ label.textContent=n?`${n} ${n===1?"foto selecionada":"fotos selecionadas"} • limite 5`:"Até 5 fotos"
 }
 async function unlockDiary(force=false){
  if(!currentAccessToken())return "";
@@ -1360,10 +1469,14 @@ function diaryAvatar(author){
  const src=marina?DIARY_FACES.marina:DIARY_FACES.flavia;
  return `<span class="diary-avatar ${marina?"marina":"flavia"}"><img src="${src}" alt="Avatar de ${name}"></span>`
 }
-function diaryPhotoGrid(images){
+function diaryPhotoGrid(images,p,compact=false){
  if(!images?.length)return "";
  const cls="n"+Math.min(images.length,5);
- return `<div class="diary-photos ${cls}">${images.slice(0,5).map((img,i)=>`<button type="button" onclick="openDiaryLightbox('${img.url.replace(/'/g,"%27")}')"><img src="${img.url}" alt="Foto ${i+1} da publicação" loading="lazy"></button>`).join("")}</div>`
+ const prefix=(p?.author==="marina"?"marina":"flavia")+"-"+String(p?.day_key||"viagem")+"-"+String(p?.id||"post").slice(0,8);
+ return `<div class="diary-photos ${cls}">${images.slice(0,5).map((img,i)=>`<div class="diary-photo-cell">
+   <button class="diary-photo-open" type="button" onclick="openDiaryLightbox('${img.url.replace(/'/g,"%27")}')"><img src="${img.url}" alt="Foto ${i+1} da publicação" loading="lazy"></button>
+   ${compact?"":`<button class="diary-photo-download" type="button" onclick="event.stopPropagation();downloadDiaryImage('${img.url.replace(/'/g,"%27")}','${prefix}-foto-${i+1}.jpg')" aria-label="Baixar foto ${i+1}">⬇</button>`}
+  </div>`).join("")}</div>`
 }
 function diaryPostCard(p,compact=false){
  const author=p.author==="marina"?"Marina":"Flá";
@@ -1376,7 +1489,7 @@ function diaryPostCard(p,compact=false){
   </div>
   <div class="diary-category">${DIARY_CATEGORY_LABELS[p.category]||"❤️ Momento"}</div>
   <p class="diary-body">${esc(body).replace(/\n/g,"<br>")}</p>
-  ${diaryPhotoGrid(p.images)}
+  ${diaryPhotoGrid(p.images,p,compact)}
   ${compact||isViewer()?"":`<div class="diary-post-actions"><button class="${p.favorite?"active":""}" type="button" onclick="toggleDiaryFavorite('${p.id}',${!p.favorite})">${p.favorite?"❤️ Favorito":"♡ Guardar como favorito"}</button></div>`}
  </article>`
 }
@@ -1395,6 +1508,88 @@ function renderDiaryFeed(){
  const feed=document.getElementById("diaryFeed");
  if(feed)feed.innerHTML=arr.length?arr.map(p=>diaryPostCard(p)).join(""):'<div class="diary-empty">Ainda não tem nenhuma lembrança com esse filtro. ❤️</div>'
 }
+
+async function downloadDiaryImage(url,fileName="foto-diario.jpg"){
+ try{
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw new Error();
+  const blob=await r.blob(),obj=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=obj;a.download=fileName;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(obj),1500)
+ }catch(e){
+  window.open(url,"_blank")
+ }
+}
+async function diaryPdfImage(url){
+ const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw new Error("imagem");
+ const blob=await r.blob(),obj=URL.createObjectURL(blob);
+ try{
+  const img=await new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=obj});
+  const max=1200,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+  const canvas=document.createElement("canvas");
+  canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+  canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+  return {data:canvas.toDataURL("image/jpeg",.76),w:canvas.width,h:canvas.height}
+ }finally{URL.revokeObjectURL(obj)}
+}
+function diaryPdfSafeText(s){return String(s||"").replace(/[❤️💡🍴🛍️📍😂⭐•]/g,"").replace(/\s+/g," ").trim()}
+async function downloadDiaryPdf(){
+ if(!diaryUnlocked)await initDiary();
+ if(!diaryPosts.length){alert("O diário ainda não tem publicações para exportar.");return}
+ const jsPDF=window.jspdf?.jsPDF;
+ if(!jsPDF){alert("Não foi possível carregar o gerador de PDF. Tente novamente com internet.");return}
+ const btn=document.getElementById("diaryPdfBtn"),old=btn?.textContent;
+ if(btn){btn.disabled=true;btn.textContent="Gerando PDF…"}
+ try{
+  const doc=new jsPDF({unit:"mm",format:"a4",orientation:"portrait"});
+  const pageW=210,pageH=297,margin=15,usable=pageW-margin*2;
+  let y=18;
+  const newPage=()=>{doc.addPage();y=18};
+  const need=h=>{if(y+h>pageH-16)newPage()};
+  doc.setTextColor(23,48,71);doc.setFont("helvetica","bold");doc.setFontSize(20);
+  doc.text("Diário da viagem",margin,y);y+=8;
+  doc.setFont("helvetica","normal");doc.setTextColor(90,100,108);doc.setFontSize(10);
+  doc.text("Flávia + Marina • Foz 2026",margin,y);y+=9;
+  doc.setDrawColor(225,205,212);doc.line(margin,y, pageW-margin,y);y+=8;
+
+  const posts=[...diaryPosts].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  for(let pi=0;pi<posts.length;pi++){
+   const p=posts[pi],author=p.author==="marina"?"Marina":"Flá";
+   const meta=[author,formatDiaryDate(p.created_at),p.day_key?diaryDayLabel(p.day_key):""].filter(Boolean).join(" • ");
+   need(25);
+   doc.setTextColor(216,75,119);doc.setFont("helvetica","bold");doc.setFontSize(10);
+   doc.text(diaryPdfSafeText(DIARY_CATEGORY_LABELS[p.category]||"Momento"),margin,y);y+=5;
+   doc.setTextColor(23,48,71);doc.setFontSize(11);
+   doc.text(diaryPdfSafeText(meta),margin,y);y+=6;
+   doc.setTextColor(55,67,75);doc.setFont("helvetica","normal");doc.setFontSize(10);
+   const lines=doc.splitTextToSize(diaryPdfSafeText(p.body),usable);
+   need(lines.length*5+6);
+   doc.text(lines,margin,y);y+=lines.length*5+4;
+
+   const imgs=(p.images||[]).slice(0,5);
+   for(let ii=0;ii<imgs.length;ii++){
+    try{
+     const im=await diaryPdfImage(imgs[ii].url);
+     const maxW=usable,maxH=92,ratio=im.w/im.h;
+     let w=maxW,h=w/ratio;
+     if(h>maxH){h=maxH;w=h*ratio}
+     need(h+5);
+     doc.addImage(im.data,"JPEG",margin,y,w,h,undefined,"FAST");
+     y+=h+4
+    }catch(e){}
+   }
+   if(pi<posts.length-1){
+    need(7);doc.setDrawColor(235,230,232);doc.line(margin,y,pageW-margin,y);y+=7
+   }
+  }
+  doc.save("diario-flavia-marina-foz-2026.pdf")
+ }catch(e){
+  alert("Não foi possível gerar o PDF do diário.")
+ }finally{
+  if(btn){btn.disabled=false;btn.textContent=old||"↓ Baixar diário em PDF"}
+ }
+}
+
 async function compressDiaryImage(file){
  if(file.size<=1600000&&["image/jpeg","image/webp"].includes(file.type))return file;
  const src=URL.createObjectURL(file);
@@ -1415,7 +1610,7 @@ async function publishDiaryPost(){
  if(!diaryAuthor){alert("Escolha se a publicação é da Flá ou da Marina.");return}
  const body=(document.getElementById("diaryText")?.value||"").trim();
  if(!body){alert("Escreva alguma lembrança antes de publicar.");return}
- const files=[...(document.getElementById("diaryPhotos")?.files||[])].slice(0,5);
+ const files=diaryQueuedFiles.slice(0,5);
  const btn=document.getElementById("diaryPublishBtn");btn.disabled=true;btn.textContent=files.length?"Publicando fotos…":"Publicando…";
  try{
   const payload={author:diaryAuthor,category:document.getElementById("diaryCategory").value,day_key:document.getElementById("diaryDay").value,body};
@@ -1427,7 +1622,7 @@ async function publishDiaryPost(){
    const ur=await diaryFetch(DIARY_FN+"?action=upload",{method:"POST",headers:{},body:fd});
    const ud=await ur.json().catch(()=>({}));if(!ur.ok)throw new Error(ud.error||"Falha ao enviar uma foto")
   }
-  document.getElementById("diaryText").value="";document.getElementById("diaryPhotos").value="";updateDiaryPhotoLabel();diaryDraftDay="";
+  document.getElementById("diaryText").value="";clearDiaryQueuedFiles();diaryDraftDay="";
   await refreshDiary()
  }catch(e){alert(e.message||"Não foi possível publicar no diário.")}
  finally{btn.disabled=false;btn.textContent="Publicar ❤️"}
@@ -1542,7 +1737,7 @@ function renderDays(){
   const [dow,date]=d.date.split(" • ");
   return `<article class="day-summary-card ${past?"past":""} ${today?"today":""}" onclick="${isPy?`openParaguay('${d.key}')`:`openDayPage('${d.key}')`}">
     <div class="day-summary-date">${dow}<b>${date}</b></div>
-    <div><h3>${esc(d.title)}${today?'<span class="today-pill">HOJE</span>':""}</h3><p>${esc(d.tags.slice(0,2).join(" • "))}</p>${tickets?`<span class="ticket-pill">🎟️ ${tickets} ${tickets===1?"passeio":"passeios"} com ingresso</span>`:""}</div>
+    <div><h3>${esc(d.title)}${today?'<span class="today-pill">HOJE</span>':""}</h3><p>${esc(d.tags.slice(0,2).join(" • "))}</p>${tickets?`<span class="ticket-pill">🎟️ ${tickets} ${tickets===1?"passeio":"passeios"} com ingresso</span>`:""}${!isViewer()&&HOTEL_STAYS[d.key]?'<span class="hotel-summary-pill">🏨 Reserva do hotel</span>':""}</div>
     <span class="arrow">›</span>
   </article>`
  }).join("")
@@ -1759,6 +1954,12 @@ function renderParaguayContext(){
  else{box.className="py-day-context";box.innerHTML=""}
  const cs=document.getElementById("pyDayChecklistSection");
  if(cs){cs.style.display=paraguayDayKey?"block":"none";if(paraguayDayKey)renderDayChecklist(paraguayDayKey,"pyDayChecklist")}
+ const hs=document.getElementById("pyHotelSection");
+ if(hs){
+  const showHotel=paraguayDayKey==="2026-09-27"&&!isViewer();
+  hs.style.display=showHotel?"block":"none";
+  if(showHotel)refreshHotelAttachments("2026-09-27","pyHotelAttachments")
+ }
  const ds=document.getElementById("pyDayDiarySection");
  if(ds){ds.style.display=paraguayDayKey?"block":"none";if(paraguayDayKey)renderDayDiaryPreview(paraguayDayKey,"pyDayDiaryPreview")}
 }
@@ -1779,6 +1980,83 @@ function moveDay(delta){
  if(key==="2026-09-27"||key==="2026-10-01"){openParaguay(key);return}currentDayKey=key;renderDayPage();window.scrollTo(0,0);history.replaceState(null,"",location.pathname+location.search+"#dia-"+key)
 }
 function goMainSection(id){currentDayKey=null;paraguayDayKey=null;document.getElementById("dayPage").style.display="none";document.getElementById("paraguayPage").style.display="none";document.getElementById("diaryPage").style.display="none";const floatBtn=document.getElementById("floatingDiaryBtn");if(floatBtn)floatBtn.style.display="";document.getElementById("mainPage").style.display="block";setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"}),20)}
+
+async function attachmentFetch(url,opt={},retry=true){
+ const headers={apikey:KEY,Authorization:"Bearer "+currentAccessToken(),...(opt.headers||{})};
+ let r=await fetch(url,{...opt,headers});
+ if(r.status===401&&retry&&await refreshAuthSession())return attachmentFetch(url,opt,false);
+ return r
+}
+function hotelFileIcon(mime){return mime==="application/pdf"?"📄":"🖼️"}
+async function refreshHotelAttachments(dayKey,mountId){
+ const box=document.getElementById(mountId);if(!box||isViewer())return;
+ box.innerHTML='<div class="notice">Carregando anexos…</div>';
+ try{
+  const r=await attachmentFetch(ATTACH_FN+"?action=list&day_key="+encodeURIComponent(dayKey));
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(data.error||"Não foi possível carregar as reservas");
+  const arr=data.attachments||[];
+  box.innerHTML=arr.length?arr.map(x=>`<div class="hotel-file">
+   <div class="hotel-file-icon">${hotelFileIcon(x.mime_type)}</div>
+   <div class="hotel-file-info"><b>${esc(x.file_name||"Reserva")}</b><small>${esc(x.label||HOTEL_STAYS[dayKey]?.name||"Hospedagem")}</small></div>
+   <div class="hotel-file-actions">
+    <button class="btn" type="button" onclick="openHotelAttachment('${x.id}',false)">Abrir</button>
+    <button class="btn" type="button" onclick="openHotelAttachment('${x.id}',true)">⬇</button>
+    <button class="btn" type="button" style="color:var(--danger)" onclick="deleteHotelAttachment('${x.id}','${dayKey}','${mountId}')">✕</button>
+   </div>
+  </div>`).join(""):'<div class="notice">Nenhuma reserva anexada ainda.</div>'
+ }catch(e){box.innerHTML=`<div class="notice">${esc(e.message||"Não foi possível carregar as reservas.")}</div>`}
+}
+async function uploadHotelAttachments(dayKey,input,mountId){
+ if(isViewer())return viewerNotice();
+ const files=[...(input?.files||[])];if(!files.length)return;
+ const info=HOTEL_STAYS[dayKey]||{name:"Hospedagem"};
+ setSync("saving","🟡 Enviando reserva…");
+ try{
+  for(let i=0;i<files.length;i++){
+   const file=files[i];
+   if(!["application/pdf","image/jpeg","image/png","image/webp"].includes(file.type)){alert(`"${file.name}" não é PDF ou imagem.`);continue}
+   if(file.size>10*1024*1024){alert(`"${file.name}" tem mais de 10 MB.`);continue}
+   const fd=new FormData();fd.append("day_key",dayKey);fd.append("label",info.name);fd.append("file",file);
+   const r=await attachmentFetch(ATTACH_FN+"?action=upload",{method:"POST",body:fd});
+   const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Falha ao enviar anexo")
+  }
+  await refreshHotelAttachments(dayKey,mountId);setSync("ok","🟢 Sincronizado")
+ }catch(e){setSync("offline","🔴 Falha no anexo");alert(e.message||"Não foi possível enviar a reserva.")}
+ finally{input.value=""}
+}
+async function openHotelAttachment(id,download=false){
+ if(isViewer())return viewerNotice();
+ const popup=download?null:window.open("about:blank","_blank");
+ try{
+  const r=await attachmentFetch(ATTACH_FN+"?action=signed-url&id="+encodeURIComponent(id));
+  const data=await r.json().catch(()=>({}));if(!r.ok||!data.url)throw new Error(data.error||"Anexo indisponível");
+  if(download){
+   const fr=await fetch(data.url,{cache:"no-store"});if(!fr.ok)throw new Error("Falha no download");
+   const blob=await fr.blob(),obj=URL.createObjectURL(blob),a=document.createElement("a");
+   a.href=obj;a.download=data.file_name||"reserva";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(obj),1500)
+  }else if(popup)popup.location.href=data.url;else window.location.href=data.url
+ }catch(e){if(popup)popup.close();alert(e.message||"Não foi possível abrir o anexo.")}
+}
+async function deleteHotelAttachment(id,dayKey,mountId){
+ if(isViewer())return viewerNotice();
+ if(!confirm("Excluir este anexo da reserva?"))return;
+ try{
+  const r=await attachmentFetch(ATTACH_FN+"?action=delete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});
+  const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Falha ao excluir");
+  await refreshHotelAttachments(dayKey,mountId)
+ }catch(e){alert(e.message||"Não foi possível excluir o anexo.")}
+}
+function renderHotelSection(dayKey){
+ const section=document.getElementById("dayHotelSection"),info=HOTEL_STAYS[dayKey];
+ if(!section)return;
+ if(!info||isViewer()){section.style.display="none";return}
+ section.style.display="block";
+ document.getElementById("dayHotelName").textContent=info.name;
+ document.getElementById("dayHotelPeriod").textContent=info.period;
+ refreshHotelAttachments(dayKey,"dayHotelAttachments")
+}
+
 function renderDayPage(){
  if(!currentDayKey)return;const i=ITIN.findIndex(d=>d.key===currentDayKey),d=ITIN[i],md=DAY_DETAILS[currentDayKey]||{},page=document.getElementById("dayPage");
  page.className="daypage "+(md.theme||"theme-road1");document.getElementById("dayPageDate").textContent=d.date;document.getElementById("dayPageTitle").textContent=d.title;document.getElementById("dayPageText").textContent=d.text;document.getElementById("dayPageTags").innerHTML=d.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("");
@@ -1787,7 +2065,7 @@ function renderDayPage(){
  document.getElementById("dayTimeline").innerHTML=(md.timeline||[]).map(x=>`<div class="daytime"><time>${esc(x[0])}</time><div><b>${esc(x[1])}</b></div></div>`).join("");
  const road=document.getElementById("dayRoadSection"),rq=document.getElementById("dayRoadQuick");
  if(md.road){road.style.display="block";rq.innerHTML=`<div class="section-head compact"><div><div class="eyebrow">Trecho do dia</div><h2>Estrada</h2></div></div><div class="day-road-quick"><div class="day-road-stats"><div class="mini"><span>Distância</span><b>${md.road.km}</b></div><div class="mini"><span>Tempo</span><b>${md.road.time}</b></div><div class="mini"><span>Pedágios</span><b>${md.road.toll}</b></div></div><div class="maplinks" style="margin-top:9px"><a target="_blank" href="${md.road.map}">Abrir rota no Maps ↗</a><a href="#" onclick="event.preventDefault();goMainSection('estrada')">Paradas + pedágios detalhados →</a></div></div>`}else{road.style.display="none";rq.innerHTML=""}
- document.getElementById("dayArgentinaSection").style.display=md.argentina?"block":"none";renderDayTickets(currentDayKey);renderDayChecklist(currentDayKey,"dayChecklist");renderDayDiaryPreview(currentDayKey,"dayDiaryPreview")
+ document.getElementById("dayArgentinaSection").style.display=md.argentina?"block":"none";renderHotelSection(currentDayKey);renderDayTickets(currentDayKey);renderDayChecklist(currentDayKey,"dayChecklist");renderDayDiaryPreview(currentDayKey,"dayDiaryPreview")
 }
 
 function applyPretripVisibility(){const cutoff=new Date(2026,8,26,0,0,0),now=new Date(),hidden=now>=cutoff&&localStorage.getItem("show_pretrip_after_26")!=="1";document.getElementById("pretripMain").style.display=hidden?"none":"block";document.getElementById("pretripCollapsed").style.display=hidden?"block":"none"}
