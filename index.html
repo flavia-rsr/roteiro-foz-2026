@@ -506,6 +506,200 @@ h3{font-weight:750}
  .hotel-file-actions{justify-content:flex-end}
 }
 
+
+/* ===== V35 • visibilidade do diário + comparação em R$ + lojas editáveis ===== */
+.diary-visibility-control{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 11px;border:1px solid var(--line);border-radius:13px;background:#fbfaf9}
+.diary-visibility-control input{width:20px;height:20px;accent-color:var(--rose);flex:0 0 auto}
+.diary-visibility-control b{display:block;color:var(--navy);font-size:12px}
+.diary-visibility-control small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.diary-private-badge.family{color:#42623e;background:var(--sage2)}
+.diary-visibility-tag{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:900;margin-left:5px}
+.diary-visibility-tag.family{background:var(--sage2);color:#42623e}
+.diary-visibility-tag.private{background:#fff0f4;color:#8c5262}
+
+.py-product-top{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(120px,.75fr);gap:6px}
+.py-product-top select,.quote-store-select,.store-add-grid input,.store-add-grid select{width:100%;border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;color:var(--ink)}
+.cp-reference-row{display:grid;grid-template-columns:72px 1fr;gap:6px;align-items:end}
+.field-mini{display:block;font-size:9px;font-weight:900;color:#65736c;text-transform:uppercase;letter-spacing:.03em}
+.field-mini input,.field-mini select{margin-top:3px}
+.store-quote-card{border:1px solid #e6ebe2;border-radius:12px;padding:9px;background:#fbfdf9;min-width:0}.store-quote-grid>*{min-width:0}.store-quote-grid .moneyfield input{min-width:0}
+.store-quote-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.store-quote-title b{font-size:11px;color:#496846}
+.store-quote-grid{display:grid;grid-template-columns:1fr;gap:7px}
+.store-quote-grid .moneyfield{height:38px}
+.store-quote-grid .converted-field{grid-column:auto}.store-quote-grid .converted-brl{min-height:46px;display:flex;align-items:center;justify-content:space-between;padding:10px 11px;border:1px solid #cfe1ca;border-radius:10px;background:#f3f8f1;color:#315d31;font-weight:950;font-size:16px}
+.store-quote-card.best{border-color:var(--green-line);background:#f6fbf4}
+.pywish.purchased .py-best strong{color:#315d31}
+.purchase-summary-row .purchase-meta{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.purchase-summary-row strong{font-size:14px}
+
+.store-admin{margin:0 0 10px}
+.store-add-panel{display:none;border:1px solid #dbe8d7;border-radius:14px;background:#f8fbf6;padding:11px;margin-top:8px}
+.store-add-panel.show{display:block}
+.store-add-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:7px}
+.store-add-actions{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.store-segment{display:inline-flex;margin-top:5px;border-radius:999px;padding:4px 7px;background:#f2f5ef;color:#5a6e55;font-size:9px;font-weight:900}
+.store-google-status{font-size:9px;color:var(--muted);margin-top:6px}
+.store-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+.store-card-actions .store-map-btn{margin-top:0!important}
+.store-sync-btn{border:1px solid #cfe1ca;border-radius:11px;background:#fff;color:#42623e;padding:9px 8px;font-size:10px;font-weight:900;cursor:pointer}
+.store-delete-btn{border:0;background:transparent;color:var(--danger);font-size:10px;font-weight:850;padding:7px 2px;cursor:pointer}
+.google-integration-note{margin-top:8px;font-size:10px;color:#65736c}
+
+@media(max-width:520px){
+  .py-product-top{grid-template-columns:minmax(0,1fr) 118px}
+  .store-quote-grid{grid-template-columns:1fr;gap:7px}
+  .store-quote-grid .moneyfield span{padding-left:7px;font-size:10px}
+  .store-quote-grid .moneyfield input{padding-left:4px!important;font-size:14px;min-width:0}
+  .store-quote-grid .converted-brl{font-size:14px}
+  .store-add-grid{grid-template-columns:1fr}
+}
+
+
+.catalog-store-preview{
+  margin-top:9px;border:1px solid #dbe8d7;border-radius:12px;background:#fff;padding:10px
+}
+.catalog-store-preview b{display:block;color:var(--navy);font-size:13px}
+.catalog-store-preview span{display:inline-block;margin-top:4px;border-radius:999px;background:#f2f5ef;padding:3px 7px;font-size:9px;font-weight:900;color:#5a6e55}
+.catalog-store-preview p{margin:7px 0 0;color:var(--muted);font-size:11px}
+.manual-store-fields{margin-top:9px}
+.manual-hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.store-edit-panel{display:none;margin-top:9px;padding:10px;border:1px solid #dbe8d7;border-radius:12px;background:#fbfdf9}
+.store-edit-panel.show{display:block}
+.store-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.store-card-actions{grid-template-columns:1fr 1fr}
+.store-edit-btn{
+  border:1px solid #cfe1ca;border-radius:11px;background:#fff;color:#42623e;
+  padding:9px 8px;font-size:10px;font-weight:900;cursor:pointer
+}
+@media(max-width:520px){
+  .manual-hours-grid,.store-edit-grid{grid-template-columns:1fr}
+}
+
+
+.store-quote-card{
+  position:relative;
+  padding:11px;
+}
+.store-quote-title{
+  margin-bottom:9px;
+}
+.store-quote-title b{
+  font-size:13px;
+}
+.quote-store-select{
+  margin-bottom:8px;
+  min-height:42px;
+}
+.store-calc-row{
+  display:grid;
+  grid-template-columns:112px minmax(0,1fr);
+  gap:8px;
+  align-items:center;
+}
+.store-calc-row .calc-label{
+  color:#65736c;
+  font-size:10px;
+  font-weight:900;
+  line-height:1.2;
+}
+.store-calc-row .moneyfield{
+  height:42px;
+}
+.store-calc-result{
+  margin-top:2px;
+  border-top:1px dashed #d9e3d5;
+  padding-top:8px;
+}
+.store-calc-result small{
+  display:block;
+  color:#65736c;
+  font-size:9px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:4px;
+}
+.store-calc-result .converted-brl{
+  width:100%;
+}
+.store-calc-result .converted-brl::before{
+  content:"Total";
+  color:#65736c;
+  font-size:10px;
+  font-weight:850;
+}
+@media(max-width:430px){
+  .store-calc-row{grid-template-columns:96px minmax(0,1fr);gap:6px}
+  .store-calc-row .calc-label{font-size:9px}
+  .store-calc-result .converted-brl{font-size:15px}
+}
+
+
+.store-tags-view{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.store-tag{
+  display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;
+  background:#f5f2ec;border:1px solid #e7dfd5;color:#655c51;font-size:9px;font-weight:900
+}
+.store-tag-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.store-tag-choice{position:relative;cursor:pointer}
+.store-tag-choice input{position:absolute;opacity:0;pointer-events:none}
+.store-tag-choice span{
+  display:inline-flex;align-items:center;border:1px solid #d9dfd5;border-radius:999px;
+  padding:6px 8px;background:#fff;color:#5e685a;font-size:10px;font-weight:850
+}
+.store-tag-choice input:checked+span{background:var(--sage2);border-color:#b9d3b3;color:#365f31}
+.store-tags-editor{grid-column:1/-1}
+.store-tags-editor>span{display:block;color:#65736c;font-size:10px;font-weight:900;margin-bottom:2px}
+.store-unverified{background:#fff4df!important;color:#8a6728!important;border-color:#ecd8a9!important}
+
+
+.quick-store-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.quick-tags-field{grid-column:1/-1}
+.py-notes-section{background:#fffaf7;border-top:1px solid #eee5df}
+.py-note-composer{
+  border:1px solid #eadfd8;border-radius:16px;background:#fff;padding:12px;
+  box-shadow:0 8px 22px rgba(66,52,45,.05)
+}
+.py-note-composer-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.py-note-composer-top select{
+  border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 10px;
+  color:var(--ink);font-weight:850
+}
+#pyNoteAuthorHint{font-size:10px;color:var(--muted);font-weight:800}
+.py-note-composer textarea{
+  width:100%;min-height:105px;resize:vertical;border:1px solid var(--line);
+  border-radius:12px;padding:10px;background:#fff;color:var(--ink);font:inherit;line-height:1.45
+}
+.py-note-actions{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:8px}
+.py-note-actions small{color:var(--muted);font-size:9px}
+.py-notes-list{display:grid;gap:9px;margin-top:12px}
+.py-note-card{
+  border:1px solid #eadfd8;border-radius:15px;background:#fff;padding:11px;
+  box-shadow:0 6px 18px rgba(66,52,45,.04)
+}
+.py-note-head{display:flex;align-items:center;gap:8px}
+.py-note-head .diary-avatar{width:34px;height:34px;flex:0 0 34px}
+.py-note-who{min-width:0;flex:1}
+.py-note-who b{display:block;color:var(--navy);font-size:12px}
+.py-note-who small{display:block;color:var(--muted);font-size:9px;margin-top:1px}
+.py-note-kind{
+  display:inline-flex;margin-top:8px;border-radius:999px;padding:4px 7px;
+  background:#fff0f4;color:#8c5262;font-size:9px;font-weight:900
+}
+.py-note-kind.dica{background:var(--sage2);color:#42623e}
+.py-note-body{margin:8px 0 0;color:var(--ink);font-size:12px;line-height:1.5;white-space:normal;overflow-wrap:anywhere}
+.py-note-delete{
+  border:0;background:transparent;color:#9c7777;font-size:14px;padding:4px 6px;cursor:pointer
+}
+.empty-note{padding:14px;border:1px dashed #ddd3cc;border-radius:13px;color:var(--muted);font-size:11px;background:#fff}
+@media(max-width:560px){
+  .quick-store-grid{grid-template-columns:1fr}
+  .quick-tags-field{grid-column:auto}
+  .py-note-actions{align-items:stretch;flex-direction:column}
+  .py-note-actions .btn{width:100%}
+}
+
 </style>
 </head>
 <body class="auth-pending">
@@ -735,7 +929,7 @@ h3{font-weight:750}
     <article class="diary-composer">
       <div class="diary-composer-head">
         <div><div class="eyebrow">Nova publicação</div><h3>O que vale guardar de hoje?</h3></div>
-        <span id="diaryPrivacyBadge" class="diary-private-badge">🔒 Privado</span>
+        <span id="diaryPrivacyBadge" class="diary-private-badge">🔒 Só Flá + Marina</span>
       </div>
 
       <div class="diary-author-row">
@@ -760,6 +954,11 @@ h3{font-weight:750}
           <select id="diaryDay"></select>
         </label>
       </div>
+
+      <label class="diary-visibility-control">
+        <input id="diaryFamilyVisible" type="checkbox" onchange="updateDiaryVisibilityBadge()">
+        <span><b>Mostrar esta publicação para a Família</b><small>Se ficar desmarcado, somente Flá e Marina verão este post.</small></span>
+      </label>
 
       <textarea id="diaryText" class="diary-textarea" maxlength="4000" placeholder="Ex.: A trilha estava tranquila, mas a roupa extra salvou a gente 😂"></textarea>
 
@@ -860,7 +1059,7 @@ h3{font-weight:750}
   <div class="py-top"><div class="wrap">
     <div class="py-head"><button class="back" onclick="closeParaguay()">← Voltar ao resumo</button><div><div class="eyebrow">Subpágina da viagem</div><h1>🇵🇾 Paraguai</h1><p>Comparar preços, organizar a rota pelas lojas e acompanhar o que já foi comprado.</p></div></div>
     <div id="pyDayContext" class="py-day-context"></div>
-    <div class="py-nav"><a href="#pyCalc">💵 Dólar</a><a href="#pyWish">🛍️ Comparar preços</a><a href="#pyStores">🕒 Lojas</a><a href="#pyBought">🧾 Compras</a></div>
+    <div class="py-nav"><a href="#pyCalc">💵 Dólar</a><a href="#pyWish">🛍️ Comparar preços</a><a href="#pyStores">🕒 Lojas</a><a href="#pyNotes">📝 Notas</a><a href="#pyBought">🧾 Compras</a></div>
   </div></div>
 
   <section id="pyCalc"><div class="wrap">
@@ -873,17 +1072,40 @@ h3{font-weight:750}
 
   <div id="pyDynamicArea" style="display:flex;flex-direction:column">
     <section id="pyWish" class="alt" style="order:1"><div class="wrap">
-      <div class="section-head"><div><div class="eyebrow">Pesquisa antes de comprar</div><h2>Lista de desejos + comparação</h2></div><p>Produto, duas lojas e o menor preço. Depois da compra, registrem onde e quanto realmente pagaram.</p></div>
+      <div class="section-head"><div><div class="eyebrow">Pesquisa antes de comprar</div><h2>Lista de desejos + comparação</h2></div><p>Use Loja 1 e Loja 2 como duas calculadoras: escolha a loja, informe a cotação do dólar dela e o preço do produto em US$. O valor em reais é calculado automaticamente.</p></div>
       <button class="btn green" style="margin-bottom:10px" onclick="addPyProduct()">+ Adicionar produto</button>
       <div id="pyCompactList" class="py-compact-list"></div>
-      <datalist id="storeOptions"><option>Cellshop</option><option>Nissei</option><option>Shopping China</option><option>Shopping Paris</option><option>Mega Eletrônicos</option><option>Monalisa</option><option>New Zone</option><option>Shopping Terra Nova</option></datalist>
     </div></section>
 
     <section id="pyHoursMount" style="order:2"><div class="wrap" id="pyStores">
-      <div class="section-head"><div><div class="eyebrow">Roteiro por fechamento</div><h2>Horários das lojas</h2></div><p>A lista fica ordenada pela loja que fecha primeiro.</p></div>
+      <div class="section-head"><div><div class="eyebrow">Roteiro por fechamento</div><h2>Horários das lojas</h2></div><p>A lista continua ordenada pela loja que fecha primeiro no dia selecionado. As tags mostram rapidamente o foco de cada loja.</p></div>
+
+      <div class="store-admin">
+        <div class="store-add-actions" style="margin-top:0">
+          <button class="btn green" type="button" onclick="toggleQuickStorePanel()">＋ Adicionar loja</button>
+        </div>
+
+        <div id="quickStorePanel" class="store-add-panel">
+          <div class="quick-store-grid">
+            <label class="field">Nome da loja<input id="quickStoreName" placeholder="Nome da loja"></label>
+            <label class="field">Segmento<select id="quickStoreSegment"></select></label>
+            <label class="field">Dom • 27/09<input id="quickStoreSunday" placeholder="Ex.: 08:00–12:00 ou Fechado"></label>
+            <label class="field">Qui • 01/10<input id="quickStoreThursday" placeholder="Ex.: 07:00–16:00"></label>
+            <label class="field quick-tags-field">Tags manuais<input id="quickStoreTags" placeholder="Ex.: Tec, têxtil, brinquedos"></label>
+          </div>
+          <div class="store-add-actions">
+            <button class="btn green" type="button" onclick="addQuickParaguayStore()">Salvar loja</button>
+            <button class="btn" type="button" onclick="toggleQuickStorePanel(false)">Cancelar</button>
+          </div>
+          <div class="google-integration-note">Use vírgulas para separar as tags. A nova loja também passa a aparecer nos seletores Loja CP, Loja 1 e Loja 2.</div>
+        </div>
+
+
+      </div>
+
       <div class="store-toolbar"><button id="daySun" class="daychoice" onclick="selectStoreDay('sun')">Dom • 27/09</button><button id="dayThu" class="daychoice" onclick="selectStoreDay('thu')">Qui • 01/10</button></div>
       <div id="storeList" class="store-list"></div>
-      <div class="notice" style="margin-top:10px;font-size:12px">⏰ Horários revisados em 20/09/2026. Como lojas podem fazer alterações extraordinárias, vale reconfirmar na véspera.</div>
+      <div class="notice" style="margin-top:10px;font-size:12px">⏰ Horários revisados para os dias da viagem. Quando não encontrei um horário confiável, deixei “A confirmar” em vez de estimar. Vocês podem editar qualquer loja.</div>
       <div class="panel py-source" style="margin-top:10px">
         <b>Fontes de horário:</b>
         <a target="_blank" href="https://cellshop.com.py/">Cellshop</a> ·
@@ -893,31 +1115,44 @@ h3{font-weight:750}
         <a target="_blank" href="https://megaeletronicos.com/">Mega Eletrônicos</a> ·
         <a target="_blank" href="https://www.comprasparaguai.com.br/lojas/monalisa/">Monalisa</a> ·
         <a target="_blank" href="https://www.descubra.newzone.com.py/">New Zone</a> ·
-        <a target="_blank" href="https://www.shoppingterranova.com.py/">Terra Nova</a>
+        <a target="_blank" href="https://www.shoppingterranova.com.py/">Terra Nova</a> ·
+        <a target="_blank" href="https://www.shoppingparis.com.py/">S.A. Shop / Shopping Paris</a> ·
+        <a target="_blank" href="https://www.pontocom.com/">Ponto Com</a> ·
+        <a target="_blank" href="https://atacadoconnect.com/">Atacado Connect</a>
       </div>
     </div></section>
   </div>
 
+  <section id="pyNotes" class="py-notes-section"><div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">Caderno do Paraguai</div><h2>📝 Notas e dicas</h2></div>
+      <p>Um espaço simples para Flá e Marina guardarem informações úteis, achados e dicas específicas do Paraguai.</p>
+    </div>
+
+    <div class="py-note-composer">
+      <div class="py-note-composer-top">
+        <select id="pyNoteKind" aria-label="Tipo da anotação">
+          <option value="nota">📝 Nota</option>
+          <option value="dica">💡 Dica</option>
+        </select>
+        <span id="pyNoteAuthorHint"></span>
+      </div>
+      <textarea id="pyNoteText" maxlength="2500" placeholder="Ex.: loja que vale voltar, endereço, dica de câmbio, onde estacionar, produto que queremos procurar..."></textarea>
+      <div class="py-note-actions">
+        <small>Fica salvo no roteiro e sincronizado entre Flá e Marina.</small>
+        <button class="btn green" type="button" onclick="addParaguayNote()">Publicar nota</button>
+      </div>
+    </div>
+
+    <div id="pyNotesList" class="py-notes-list"></div>
+  </div></section>
+
   <section id="pyBought"><div class="wrap">
-    <div class="section-head"><div><div class="eyebrow">Fechamento das compras</div><h2>Compras realizadas</h2></div><p>O valor considera o menor preço entre Loja 1 e Loja 2. Se houver apenas um preço disponível, ele será usado.</p></div>
+    <div class="section-head"><div><div class="eyebrow">Fechamento das compras</div><h2>Compras realizadas</h2></div><p>O fechamento usa o menor custo final em reais entre Loja 1 e Loja 2. Se houver só uma cotação válida, ela será usada.</p></div>
     <div id="purchaseSummary"></div>
   </div></section>
 
-  <section id="pyHotelSection" class="alt" style="display:none"><div class="wrap">
-    <div class="section-head">
-      <div><div class="eyebrow">Hospedagem</div><h2>🏨 Reserva do hotel</h2></div>
-      <p>Reserva do Luz Hotel para a estadia em Foz.</p>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-card-head"><div><b>Luz Hotel by Castelo Itaipava</b><p>27/09 → 02/10 • check-in a partir de 14h • check-out até 11h</p></div></div>
-      <div id="pyHotelAttachments" class="hotel-attachment-list"></div>
-      <div class="hotel-upload-row">
-        <input id="pyHotelFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple style="display:none" onchange="uploadHotelAttachments('2026-09-27',this,'pyHotelAttachments')">
-        <button class="btn green" type="button" onclick="document.getElementById('pyHotelFiles').click()">＋ Adicionar anexo</button>
-        <small>PDF ou imagem • até 10 MB por arquivo</small>
-      </div>
-    </div>
-  </div></section>
+
 
   <section id="pyDayChecklistSection" class="alt" style="display:none"><div class="wrap">
     <div class="section-head">
@@ -943,6 +1178,8 @@ h3{font-weight:750}
     <button class="btn green" style="margin-top:9px" onclick="openDiaryFromDay(paraguayDayKey)">+ Escrever no diário</button>
   </div></section>
 
+
+
 <footer class="footer">Flávia + Marina ❤️ Paraguai 2026</footer>
 </div>
 
@@ -964,7 +1201,7 @@ const DIARY_FN=SUPA+"/functions/v1/trip-diary-auth";
 const DIARY_VIEW_FN=SUPA+"/functions/v1/trip-diary-view";
 const ATTACH_FN=SUPA+"/functions/v1/trip-day-attachments-auth";
 const AUTH_STORE="foz_auth_session_v1",LAST_USER_STORE="foz_last_auth_user";
-const CACHE="foz_shared_v34",QUEUE="foz_ops_v34";
+const CACHE="foz_shared_v43",QUEUE="foz_ops_v43";
 let authData=null,authRole="",authName="",appStarted=false,pollTimer=null;
 let H={apikey:KEY,Authorization:"Bearer "+KEY,"Content-Type":"application/json"};
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -1179,7 +1416,7 @@ function applyAccessMode(){
   "addPyProduct","editProduct","deleteProduct","togglePurchased",
   "addDayChecklist","toggleDayChecklist","editDayChecklist","deleteDayChecklist",
   "addTicketForDay","editTicket","deleteTicket","uploadTicketPdf",
-  "publishDiaryPost","toggleDiaryFavorite","deleteDiaryPost","selectDiaryAuthor","uploadHotelAttachments","deleteHotelAttachment"
+  "publishDiaryPost","toggleDiaryFavorite","toggleDiaryVisibility","deleteDiaryPost","selectDiaryAuthor","uploadHotelAttachments","deleteHotelAttachment","toggleQuickStorePanel","addQuickParaguayStore","deleteParaguayStore","toggleStoreEdit","saveStoreEdit","addParaguayNote","deleteParaguayNote"
  ];
 
  document.querySelectorAll("button[onclick]").forEach(btn=>{
@@ -1192,7 +1429,7 @@ function applyAccessMode(){
 }
 
 const uid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0,v=c==="x"?r:(r&3|8);return v.toString(16)});
-let state={items:[],days:[],dayChecklist:[],expenses:[],products:[],tickets:[],settings:{usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200}};
+let state={items:[],days:[],dayChecklist:[],expenses:[],products:[],stores:[],notes:[],tickets:[],settings:{usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200}};
 let diaryPosts=[],diaryUnlocked=false,diaryFilter="all",diaryAuthor=localStorage.getItem("foz_diary_author")||"",diaryDraftDay="",diaryQueuedFiles=[];
 
 let pollBusy=false,queueBusy=false,typing=false,storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
@@ -1207,8 +1444,8 @@ const DEFAULT_PENDING=[
 
 const ITIN=[
 {key:"2026-09-25",date:"SEX • 25/09",title:"Florianópolis → Curitiba",text:"Viagem de carro. Hotel em Curitiba ainda a decidir.",tags:["~303 km","~4h15 sem paradas","saída sugerida 08h–09h"]},
-{key:"2026-09-26",date:"SÁB • 26/09",title:"Curitiba → Foz do Iguaçu",text:"BR-277. Check-in na Pousada Nanai entre 14h e 20h.",tags:["~640 km","~8h + paradas","Irati • Guarapuava • Cascavel","saída 07h"]},
-{key:"2026-09-27",date:"DOM • 27/09",title:"Paraguai + troca de hotel",text:"Check-out cedo da Nanai → deixar malas no Luz Hotel → Ciudad del Este → voltar para check-in.",tags:["Paraguai bem cedo","Luz Hotel a partir das 14h"]},
+{key:"2026-09-26",date:"SÁB • 26/09",title:"Curitiba → Foz do Iguaçu",text:"BR-277. Check-in no Luz Hotel by Castelo Itaipava a partir das 14h.",tags:["~640 km","~8h + paradas","Irati • Guarapuava • Cascavel","saída 07h"]},
+{key:"2026-09-27",date:"DOM • 27/09",title:"Paraguai",text:"Dia dedicado às compras em Ciudad del Este. Sair cedo e retornar ao hotel no fim do dia.",tags:["Paraguai bem cedo","retorno ao hotel no fim do dia"]},
 {key:"2026-09-28",date:"SEG • 28/09",title:"Cataratas Brasil + Parque das Aves",text:"Cataratas primeiro; Parque das Aves depois.",tags:["Cataratas 09h10","Parque das Aves 08h30–16h30"]},
 {key:"2026-09-29",date:"TER • 29/09",title:"Cataratas Argentinas + Puerto Iguazú + vinhos",text:"Parque Nacional Iguazú primeiro; depois Puerto Iguazú e vinhos. Reservar margem para imigração.",tags:["saída 06h15–06h30","Parque 08h–18h"]},
 {key:"2026-09-30",date:"QUA • 30/09",title:"Templo Budista + Itaipu",text:"Templo pela manhã, almoço e Itaipu Panorâmica à tarde.",tags:["Templo 09h30","Itaipu 13h30"]},
@@ -1220,14 +1457,13 @@ const ITIN=[
 
 const HOTEL_STAYS={
  "2026-09-25":{name:"Hotel em Curitiba",period:"25/09 → 26/09 • hospedagem a definir"},
- "2026-09-26":{name:"Pousada Nanai",period:"26/09 → 27/09 • check-in 14h–20h • check-out até 10h"},
- "2026-09-27":{name:"Luz Hotel by Castelo Itaipava",period:"27/09 → 02/10 • check-in a partir de 14h • check-out até 11h"},
+ "2026-09-26":{name:"Luz Hotel by Castelo Itaipava",period:"26/09 → 02/10 • check-in a partir de 14h • check-out até 11h • café 06:30–10h"},
  "2026-10-02":{name:"Hotel em Curitiba",period:"02/10 → 03/10 • hospedagem a definir"}
 };
 
 const DAY_DETAILS={
  "2026-09-25":{theme:"theme-road1",timeline:[["08h–09h","Saída de Florianópolis"],["Durante o trajeto","Pausa planejada em Garuva"],["Fim da tarde","Chegada em Curitiba • hotel a definir"]],road:{km:"~303 km",time:"~4h15",toll:"~R$ 23,60",map:"https://www.google.com/maps/dir/?api=1&origin=Florianopolis%2C+SC&destination=Curitiba%2C+PR&travelmode=driving"}},
- "2026-09-26":{theme:"theme-road2",timeline:[["07h","Saída de Curitiba"],["Durante o trajeto","Pausas em Guarapuava e Cascavel"],["14h–20h","Check-in na Pousada Nanai"]],road:{km:"~640 km",time:"~8h + paradas",toll:"~R$ 129,40",map:"https://www.google.com/maps/dir/?api=1&origin=Curitiba%2C+PR&destination=Foz+do+Iguacu%2C+PR&travelmode=driving"}},
+ "2026-09-26":{theme:"theme-road2",timeline:[["07h","Saída de Curitiba"],["Durante o trajeto","Pausas em Guarapuava e Cascavel"],["A partir de 14h","Check-in no Luz Hotel by Castelo Itaipava"]],road:{km:"~640 km",time:"~8h + paradas",toll:"~R$ 129,40",map:"https://www.google.com/maps/dir/?api=1&origin=Curitiba%2C+PR&destination=Foz+do+Iguacu%2C+PR&travelmode=driving"}},
  "2026-09-28":{theme:"theme-water",reminder:"🧺 Cataratas: levar uma peça de roupa extra e uma toalha.",timeline:[["09h10","Cataratas do Iguaçu • Brasil"],["Depois das Cataratas","Parque das Aves"],["Fim do dia","Retorno ao hotel"]]},
  "2026-09-29":{theme:"theme-arg",reminder:"🧺 Cataratas: levar uma peça de roupa extra e uma toalha.",argentina:true,timeline:[["06h15–06h30","Saída de Foz • reservar margem para imigração"],["08h","Cataratas Argentinas"],["Depois do parque","Puerto Iguazú + vinhos"],["Fim do dia","Retorno para Foz"]]},
  "2026-09-30":{theme:"theme-blue",timeline:[["09h30","Templo Budista"],["Entre os passeios","Almoço / deslocamento"],["13h30","Itaipu Panorâmica"]]},
@@ -1235,21 +1471,50 @@ const DAY_DETAILS={
  "2026-10-03":{theme:"theme-home",timeline:[["08h–09h","Saída de Curitiba"],["Durante o trajeto","Pausa planejada em Garuva"],["Tarde","Chegada em Florianópolis ❤️"]],road:{km:"~303 km",time:"~4h15",toll:"~R$ 23,60",map:"https://www.google.com/maps/dir/?api=1&origin=Curitiba%2C+PR&destination=Florianopolis%2C+SC&travelmode=driving"}}
 };
 
-const STORES=[
-{name:"Cellshop",weekday:"Seg–sex 05:30–16:00",sat:"Sáb 05:00–15:30",sun:"07:00–13:00",thu:"05:30–16:00",closeSun:780,closeThu:960,map:"https://www.google.com/maps/dir/?api=1&destination=Cellshop+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Mega Eletrônicos",weekday:"Seg 07:00–16:30 • Ter–sex 06:30–16:30",sat:"Sáb 06:00–15:00",sun:"Fechado",thu:"06:30–16:30",closeSun:9999,closeThu:990,map:"https://www.google.com/maps/dir/?api=1&destination=Mega+Eletronicos+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Monalisa",weekday:"Seg–sex 07:30–16:30",sat:"Sáb 07:30–16:30",sun:"08:00–12:00",thu:"07:30–16:30",closeSun:720,closeThu:990,map:"https://www.google.com/maps/dir/?api=1&destination=Monalisa+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Nissei",weekday:"Seg–sex 06:30–17:00",sat:"Sáb 06:30–16:00",sun:"Fechado",thu:"06:30–17:00",closeSun:9999,closeThu:1020,map:"https://www.google.com/maps/dir/?api=1&destination=Nissei+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Shopping Paris",weekday:"Seg–sáb 07:00–19:00",sat:"Sáb 07:00–19:00",sun:"07:00–17:00",thu:"07:00–19:00",closeSun:1020,closeThu:1140,map:"https://www.google.com/maps/dir/?api=1&destination=Shopping+Paris+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Shopping China",weekday:"Seg–dom 07:00–20:00",sat:"Sáb 07:00–20:00",sun:"07:00–20:00",thu:"07:00–20:00",closeSun:1200,closeThu:1200,map:"https://www.google.com/maps/dir/?api=1&destination=Shopping+China+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"New Zone",weekday:"Seg–sáb 07:00–22:00",sat:"Sáb 07:00–22:00",sun:"08:00–20:00",thu:"07:00–22:00",closeSun:1200,closeThu:1320,map:"https://www.google.com/maps/dir/?api=1&destination=New+Zone+Shopping+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Shopping Terra Nova",weekday:"Seg–sáb 07:00–16:00",sat:"Sáb 07:00–16:00",sun:"08:00–12:00",thu:"07:00–16:00",closeSun:720,closeThu:960,map:"https://www.google.com/maps/dir/?api=1&destination=Shopping+Terra+Nova+Ciudad+del+Este+Paraguay&travelmode=walking"}
+const DEFAULT_STORES=[
+{name:"Cellshop",segment:"Shopping / Multimarcas",tags:["Eletrônicos","Celulares","Perfumes","Bebidas","Moda","Casa"],weekday:"Seg–sex 05:30–16:00",saturday:"Sáb 05:00–15:30",sunday:"07:00–13:00",thursday:"05:30–16:00",close_sun:780,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Cellshop+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Mega Eletrônicos",segment:"Eletrônicos",tags:["Eletrônicos","Informática","Games"],weekday:"Seg 07:00–16:30 • Ter–sex 06:30–16:30",saturday:"Sáb 06:00–15:00",sunday:"Fechado",thursday:"06:30–16:30",close_sun:9999,close_thu:990,map_url:"https://www.google.com/maps/dir/?api=1&destination=Mega+Eletronicos+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Monalisa",segment:"Shopping / Multimarcas",tags:["Perfumes","Cosméticos","Bebidas","Moda"],weekday:"Seg–sex 07:30–16:30",saturday:"Sáb 07:30–16:30",sunday:"08:00–12:00",thursday:"07:30–16:30",close_sun:720,close_thu:990,map_url:"https://www.google.com/maps/dir/?api=1&destination=Monalisa+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Nissei",segment:"Eletrônicos",tags:["Eletrônicos","Informática","Celulares"],weekday:"Seg–sex 06:30–17:00",saturday:"Sáb 06:30–16:00",sunday:"Fechado",thursday:"06:30–17:00",close_sun:9999,close_thu:1020,map_url:"https://www.google.com/maps/dir/?api=1&destination=Nissei+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Shopping Paris",segment:"Shopping / Multimarcas",tags:["Multimarcas","Moda","Beleza","Eletrônicos"],weekday:"Seg–sáb 07:00–19:00",saturday:"Sáb 07:00–19:00",sunday:"07:00–17:00",thursday:"07:00–19:00",close_sun:1020,close_thu:1140,map_url:"https://www.google.com/maps/dir/?api=1&destination=Shopping+Paris+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Shopping China",segment:"Shopping / Multimarcas",tags:["Multimarcas","Eletrônicos","Casa","Bebidas","Perfumes","Brinquedos"],weekday:"Seg–dom 07:00–20:00",saturday:"Sáb 07:00–20:00",sunday:"07:00–20:00",thursday:"07:00–20:00",close_sun:1200,close_thu:1200,map_url:"https://www.google.com/maps/dir/?api=1&destination=Shopping+China+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"New Zone",segment:"Shopping / Multimarcas",tags:["Eletrônicos","Celulares","Perfumes","Bebidas","Moda","Casa"],weekday:"Seg–sáb 07:00–22:00",saturday:"Sáb 07:00–22:00",sunday:"08:00–20:00",thursday:"07:00–22:00",close_sun:1200,close_thu:1320,map_url:"https://www.google.com/maps/dir/?api=1&destination=New+Zone+Shopping+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Shopping Terra Nova",segment:"Shopping / Multimarcas",tags:["Multimarcas"],weekday:"Seg–sáb 07:00–16:00",saturday:"Sáb 07:00–16:00",sunday:"08:00–12:00",thursday:"07:00–16:00",close_sun:720,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Shopping+Terra+Nova+Ciudad+del+Este+Paraguay&travelmode=walking"},
+
+{name:"Galeria San Blas",segment:"Shopping / Multimarcas",tags:["Multimarcas","Eletrônicos","Moda","Beleza"],weekday:"Seg–sex 07:00–16:00",saturday:"Sáb 07:00–16:00",sunday:"A confirmar",thursday:"07:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Galeria+San+Blas+Ciudad+del+Este+Paraguay&travelmode=walking",hours_unverified:true},
+{name:"S.A. Shop (Shopping Paris)",segment:"Shopping / Multimarcas",tags:["Moda","Cosméticos","Perfumes","Casa","Eletrônicos","Brinquedos","Bebidas"],weekday:"Seg–sáb 07:00–19:00",saturday:"Sáb 07:00–19:00",sunday:"07:00–17:00",thursday:"07:00–19:00",close_sun:1020,close_thu:1140,map_url:"https://www.google.com/maps/dir/?api=1&destination=SA+Shop+Shopping+Paris+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Shopping Itaipu",segment:"Shopping / Multimarcas",tags:["Multimarcas"],weekday:"Seg–sex 06:00–17:00",saturday:"Sáb 06:00–17:00",sunday:"07:00–14:00",thursday:"06:00–17:00",close_sun:840,close_thu:1020,map_url:"https://www.google.com/maps/dir/?api=1&destination=Shopping+Itaipu+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Horário Center",segment:"Outros",tags:[],weekday:"A confirmar",saturday:"A confirmar",sunday:"A confirmar",thursday:"A confirmar",close_sun:9999,close_thu:9999,map_url:"https://www.google.com/maps/dir/?api=1&destination=Horario+Center+Ciudad+del+Este+Paraguay&travelmode=walking",hours_unverified:true},
+{name:"Benetex",segment:"Têxtil",tags:["Têxtil","Moda"],weekday:"Seg–sáb 06:30–15:30",saturday:"Sáb 06:30–15:30",sunday:"Fechado",thursday:"06:30–15:30",close_sun:9999,close_thu:930,map_url:"https://www.google.com/maps/dir/?api=1&destination=Benetex+Rubio+Nu+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Ponto Com",segment:"Shopping / Multimarcas",tags:["Perfumes","Cosméticos","Relógios","Bolsas","Casa","Suplementos"],weekday:"Seg–sáb 06:30–15:30",saturday:"Sáb 06:30–15:30",sunday:"Fechado",thursday:"06:30–15:30",close_sun:9999,close_thu:930,map_url:"https://www.google.com/maps/dir/?api=1&destination=Ponto+Com+Super+Store+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Mix Importados",segment:"Shopping / Multimarcas",tags:["Brinquedos","Colecionáveis","Moda","Acessórios","Eletrônicos"],weekday:"Seg–sáb 07:00–16:00",saturday:"Sáb 07:00–16:00",sunday:"Fechado",thursday:"07:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Mix+Importados+Galeria+Zuni+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Elegancia Company",segment:"Perfumes & Cosméticos",tags:["Perfumes","Cosméticos","Maquiagem"],weekday:"Seg–sáb 06:30–15:30",saturday:"Sáb 06:00–15:00",sunday:"Fechado",thursday:"06:30–15:30",close_sun:9999,close_thu:930,map_url:"https://www.google.com/maps/dir/?api=1&destination=Elegancia+Company+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Atacado Connect",segment:"Eletrônicos",tags:["Eletrônicos","Games","Informática","Celulares","Áudio"],weekday:"Seg–sex 06:00–16:00",saturday:"Sáb 06:00–15:00",sunday:"Fechado",thursday:"06:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Atacado+Connect+Galeria+Jebai+Ciudad+del+Este+Paraguay&travelmode=walking"}
 ];
+
+const STORE_CATALOG=[
+ ...DEFAULT_STORES.map(x=>({...x,catalog:true})),
+ {name:"Outra loja",segment:"Outros",manual:true,catalog:true}
+];
+
+const STORE_SEGMENTS=[
+ "Shopping / Multimarcas","Eletrônicos","Informática & Games","Celulares & Acessórios",
+ "Áudio & Foto","Perfumes & Cosméticos","Moda & Acessórios","Casa & Eletrodomésticos",
+ "Bebidas & Alimentos","Brinquedos","Farmácia & Saúde","Outros"
+];
+const STORE_TAGS=[
+ "Tec","Eletrônicos","Celulares","Informática","Games","Áudio",
+ "Têxtil","Moda","Acessórios","Bolsas","Relógios",
+ "Perfumes","Cosméticos","Maquiagem","Beleza",
+ "Brinquedos","Colecionáveis","Casa","Bebidas","Alimentos",
+ "Suplementos","Multimarcas","Outros"
+];
+const DEFAULT_STORE_NAMES=new Set(DEFAULT_STORES.map(x=>x.name));
 
 function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function setSync(k,t){const e=document.getElementById("syncStatus");if(!e)return;e.className="sync "+k;e.textContent=t}
 function cache(){try{localStorage.setItem(CACHE,JSON.stringify(state))}catch(e){}}
-function restore(){try{const x=JSON.parse(localStorage.getItem(CACHE)||"null");if(x)state={...state,...x}}catch(e){};if(!state.items?.length)state.items=DEFAULT_PENDING.slice();if(!state.days?.length)state.days=ITIN.map(d=>({trip_id:TRIP,day_key:d.key,done:false}));state.dayChecklist=state.dayChecklist||[];state.expenses=state.expenses||[];state.products=state.products||[];state.tickets=state.tickets||[];state.settings={usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200,...(state.settings||{})}}
+function restore(){try{const x=JSON.parse(localStorage.getItem(CACHE)||"null");if(x)state={...state,...x}}catch(e){};if(!state.items?.length)state.items=DEFAULT_PENDING.slice();if(!state.days?.length)state.days=ITIN.map(d=>({trip_id:TRIP,day_key:d.key,done:false}));state.dayChecklist=state.dayChecklist||[];state.expenses=state.expenses||[];state.products=state.products||[];state.stores=state.stores?.length?state.stores:DEFAULT_STORES.slice();state.notes=state.notes||[];state.tickets=state.tickets||[];state.settings={usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200,...(state.settings||{})}}
 function qload(){try{return JSON.parse(localStorage.getItem(QUEUE)||"[]")}catch(e){return[]}}function qsave(q){localStorage.setItem(QUEUE,JSON.stringify(q))}
 async function request(path,opt={},retry=true){
  let r=await fetch(SUPA+"/rest/v1/"+path,{...opt,headers:{...H,...(opt.headers||{})}});
@@ -1271,16 +1536,18 @@ function removeRow(table,query){enqueue({method:"DELETE",path:table+"?"+query})}
 async function fetchAll(){
  if(pollBusy||typing||qload().length||queueBusy)return;pollBusy=true;
  try{
-  const [items,days,dayChecklist,expenses,settings,products,tickets]=await Promise.all([
+  const [items,days,dayChecklist,expenses,settings,products,stores,notes,tickets]=await Promise.all([
    request("trip_items?trip_id=eq."+TRIP+"&category=in.(pending,gift)&order=category.asc,sort_order.asc"),
    request("trip_days?trip_id=eq."+TRIP+"&order=day_key.asc"),
    request("trip_day_checklist?trip_id=eq."+TRIP+"&order=day_key.asc,sort_order.asc,updated_at.asc"),
    request("trip_expenses?trip_id=eq."+TRIP+"&order=created_at.asc"),
    request("trip_settings?trip_id=eq."+TRIP+"&limit=1"),
    request("paraguay_products?trip_id=eq."+TRIP+"&order=sort_order.asc,updated_at.asc"),
+   request("paraguay_stores?trip_id=eq."+TRIP+"&order=name.asc"),
+   request("paraguay_notes?trip_id=eq."+TRIP+"&order=created_at.desc"),
    request("trip_tickets?trip_id=eq."+TRIP+"&order=sort_order.asc,updated_at.asc")
   ]);
-  state.items=items?.length?items:DEFAULT_PENDING.slice();state.days=days?.length?days:state.days;state.dayChecklist=dayChecklist||[];state.expenses=expenses||[];state.products=products||[];state.tickets=tickets||[];if(settings?.[0])state.settings=settings[0];
+  state.items=items?.length?items:DEFAULT_PENDING.slice();state.days=days?.length?days:state.days;state.dayChecklist=dayChecklist||[];state.expenses=expenses||[];state.products=products||[];state.stores=stores?.length?stores:DEFAULT_STORES.slice();state.notes=notes||[];state.tickets=tickets||[];if(settings?.[0])state.settings=settings[0];
   cache();renderAll();applyAccessMode();setSync("ok",isViewer()?"👀 Família • somente leitura":"🟢 Sincronizado")
  }catch(e){setSync("offline","🔴 Offline • usando cópia local")}finally{pollBusy=false}
 }
@@ -1398,6 +1665,14 @@ function selectDiaryAuthor(author){
  document.getElementById("diaryAuthorFlavia")?.classList.toggle("active",author==="flavia");
  document.getElementById("diaryAuthorMarina")?.classList.toggle("active",author==="marina")
 }
+function updateDiaryVisibilityBadge(){
+ const visible=!!document.getElementById("diaryFamilyVisible")?.checked;
+ const badge=document.getElementById("diaryPrivacyBadge");
+ if(!badge)return;
+ badge.classList.toggle("family",visible);
+ badge.textContent=visible?"👨‍👩‍👧 Família":"🔒 Só Flá + Marina"
+}
+
 function queueDiaryFiles(input){
  const incoming=[...(input?.files||[])];
  if(!incoming.length)return;
@@ -1492,16 +1767,20 @@ function diaryPhotoGrid(images,p,compact=false){
 function diaryPostCard(p,compact=false){
  const author=p.author==="marina"?"Marina":"Flá";
  const body=compact&&p.body.length>180?p.body.slice(0,180)+"…":p.body;
+ const visible=!!p.family_visible;
  return `<article class="diary-post ${compact?"compact":""}">
   <div class="diary-post-head">
     ${diaryAvatar(p.author)}
     <div class="diary-post-who"><b>${author}</b><small>${formatDiaryDate(p.created_at)}${p.day_key?" • "+esc(diaryDayLabel(p.day_key)):""}</small></div>
     ${compact||isViewer()?"":`<button class="diary-delete" type="button" onclick="deleteDiaryPost('${p.id}')" aria-label="Excluir publicação">•••</button>`}
   </div>
-  <div class="diary-category">${DIARY_CATEGORY_LABELS[p.category]||"❤️ Momento"}</div>
+  <div class="diary-category">${DIARY_CATEGORY_LABELS[p.category]||"❤️ Momento"}${isViewer()?"":`<span class="diary-visibility-tag ${visible?"family":"private"}">${visible?"👨‍👩‍👧 Família":"🔒 Só nós"}</span>`}</div>
   <p class="diary-body">${esc(body).replace(/\n/g,"<br>")}</p>
   ${diaryPhotoGrid(p.images,p,compact)}
-  ${compact||isViewer()?"":`<div class="diary-post-actions"><button class="${p.favorite?"active":""}" type="button" onclick="toggleDiaryFavorite('${p.id}',${!p.favorite})">${p.favorite?"❤️ Favorito":"♡ Guardar como favorito"}</button></div>`}
+  ${compact||isViewer()?"":`<div class="diary-post-actions">
+    <button class="${p.favorite?"active":""}" type="button" onclick="toggleDiaryFavorite('${p.id}',${!p.favorite})">${p.favorite?"❤️ Favorito":"♡ Guardar como favorito"}</button>
+    <button type="button" onclick="toggleDiaryVisibility('${p.id}',${!visible})">${visible?"🔒 Ocultar da Família":"👨‍👩‍👧 Mostrar para Família"}</button>
+  </div>`}
  </article>`
 }
 function renderDiaryFeed(){
@@ -1748,7 +2027,7 @@ async function publishDiaryPost(){
  const files=diaryQueuedFiles.slice(0,5);
  const btn=document.getElementById("diaryPublishBtn");btn.disabled=true;btn.textContent=files.length?"Publicando fotos…":"Publicando…";
  try{
-  const payload={author:diaryAuthor,category:document.getElementById("diaryCategory").value,day_key:document.getElementById("diaryDay").value,body};
+  const payload={author:diaryAuthor,category:document.getElementById("diaryCategory").value,day_key:document.getElementById("diaryDay").value,body,family_visible:!!document.getElementById("diaryFamilyVisible")?.checked};
   const r=await diaryFetch(DIARY_FN+"?action=create",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
   const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Falha ao publicar");
   for(let i=0;i<files.length;i++){
@@ -1757,7 +2036,7 @@ async function publishDiaryPost(){
    const ur=await diaryFetch(DIARY_FN+"?action=upload",{method:"POST",headers:{},body:fd});
    const ud=await ur.json().catch(()=>({}));if(!ur.ok)throw new Error(ud.error||"Falha ao enviar uma foto")
   }
-  document.getElementById("diaryText").value="";clearDiaryQueuedFiles();diaryDraftDay="";
+  document.getElementById("diaryText").value="";clearDiaryQueuedFiles();diaryDraftDay="";const vis=document.getElementById("diaryFamilyVisible");if(vis)vis.checked=false;updateDiaryVisibilityBadge();
   await refreshDiary()
  }catch(e){alert(e.message||"Não foi possível publicar no diário.")}
  finally{btn.disabled=false;btn.textContent="Publicar ❤️"}
@@ -1770,6 +2049,22 @@ async function toggleDiaryFavorite(id,favorite){
   if(!r.ok)throw new Error();await refreshDiary()
  }catch(e){if(p)p.favorite=!favorite;renderDiaryFeed();alert("Não foi possível atualizar o favorito.")}
 }
+async function toggleDiaryVisibility(id,familyVisible){
+ if(isViewer())return viewerNotice();
+ const p=diaryPosts.find(x=>x.id===id);
+ if(p){p.family_visible=familyVisible;renderDiaryFeed()}
+ try{
+  const r=await diaryFetch(DIARY_FN+"?action=visibility",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({post_id:id,family_visible:familyVisible})});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(data.error||"Falha ao alterar visibilidade");
+  await refreshDiary()
+ }catch(e){
+  if(p)p.family_visible=!familyVisible;
+  renderDiaryFeed();
+  alert(e.message||"Não foi possível alterar quem pode ver a publicação.")
+ }
+}
+
 async function deleteDiaryPost(id){
  if(!confirm("Excluir esta publicação e as fotos dela?"))return;
  if(isViewer())return viewerNotice();const token=await unlockDiary(false);if(!token)return;
@@ -1986,49 +2281,119 @@ function maskUsdTyping(el){
  el.value=n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})
 }
 
+function storeOptionsHtml(selected="",placeholder="Selecionar loja"){
+ const stores=[...(state.stores?.length?state.stores:DEFAULT_STORES)].sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+ return `<option value="">${placeholder}</option>`+stores.map(s=>`<option value="${esc(s.name)}" ${s.name===selected?"selected":""}>${esc(s.name)}</option>`).join("")
+}
+function productRate(x,n){
+ return +(n===1?x.rate1:x.rate2)||0
+}
+function quoteInfo(x,n){
+ const store=n===1?x.store1:x.store2;
+ const price=+(n===1?x.price1:x.price2)||0;
+ const rate=productRate(x,n);
+ return {n,store,price,rate,brl:price>0&&rate>0?price*rate:0}
+}
+function convertedQuoteText(q){
+ if(q.price>0&&q.rate>0)return brl(q.brl);
+ if(q.price>0&&!q.rate)return "Informe a cotação da loja";
+ if(q.rate>0&&!q.price)return "Informe o preço do produto";
+ return "—"
+}
 function bestInfo(x){
- const p1=+x.price1||0,p2=+x.price2||0;
- if(!p1&&!p2)return{which:"",store:"Sem comparação",price:"",value:0,text:"—"};
- if(p1&&(!p2||p1<p2)){const store=x.store1||"Loja 1";return{which:"1",store,price:usd(p1),value:p1,text:store+" • "+usd(p1)}}
- if(p2&&(!p1||p2<p1)){const store=x.store2||"Loja 2";return{which:"2",store,price:usd(p2),value:p2,text:store+" • "+usd(p2)}}
- return{which:"both",store:"Empate",price:usd(p1),value:p1,text:"Empate • "+usd(p1)}
+ const q1=quoteInfo(x,1),q2=quoteInfo(x,2);
+ const valid=[q1,q2].filter(q=>q.price>0&&q.rate>0&&q.brl>0);
+ if(!valid.length)return{which:"",store:"Sem comparação completa",price:"",value:0,brl:0,rate:0,text:"—"};
+ const best=valid.sort((a,b)=>a.brl-b.brl||a.price-b.price)[0];
+ const tied=valid.length===2&&Math.abs(q1.brl-q2.brl)<0.005;
+ return{
+  which:tied?"both":String(best.n),
+  store:tied?"Empate":(best.store||`Loja ${best.n}`),
+  price:usd(best.price),
+  value:best.price,
+  brl:best.brl,
+  rate:best.rate,
+  text:(tied?"Empate":(best.store||`Loja ${best.n}`))+" • "+usd(best.price)+" • "+brl(best.brl)
+ }
 }
-
-function purchaseReferenceValue(x){
- const prices=[+x.price1||0,+x.price2||0].filter(v=>v>0);
- if(prices.length)return Math.min(...prices);
- return +x.compras_price||0
+function purchaseReferenceInfo(x){
+ const b=bestInfo(x);
+ if(b.which)return{store:b.store,usd:b.value,rate:b.rate,brl:b.brl};
+ const cp=+x.compras_price||0,rate=+state.settings.usd_rate||0;
+ return{store:x.compras_store||"Compras Paraguai",usd:cp,rate,brl:cp&&rate?cp*rate:0}
 }
-
-function cpInfo(){alert("CP = Compras Paraguai. Use este campo como preço de referência encontrado no site; o menor preço destacado considera Loja 1 e Loja 2.")}
+function cpInfo(){alert("CP = Compras Paraguai. Informe também a loja exibida no site para vocês saberem a origem dessa referência. O comparativo final usa o custo convertido em reais de Loja 1 e Loja 2.")}
 function renderProducts(){
  const box=document.getElementById("pyCompactList");if(!box)return;
  const openIds=new Set([...box.querySelectorAll("details[open][data-id]")].map(el=>el.dataset.id));
  const arr=[...(state.products||[])].sort((a,b)=>Number(!!a.purchased)-Number(!!b.purchased)||(a.sort_order||0)-(b.sort_order||0));
  box.innerHTML=arr.length?arr.map(x=>{
-  const b=bestInfo(x),purchased=!!x.purchased;
+  const b=bestInfo(x),purchased=!!x.purchased,q1=quoteInfo(x,1),q2=quoteInfo(x,2),finalInfo=purchaseReferenceInfo(x);
   return `<details class="pywish ${purchased?"purchased":""}" data-id="${x.id}" ${openIds.has(x.id)?"open":""}>
    <summary>
-    <div><div class="py-title">${esc(x.product||"Novo produto")}</div><div class="py-sub">${purchased?"✓ Comprado":(b.which?esc(b.store):"Sem comparação de lojas")}</div></div>
-    <div class="py-best">${purchased?`<span class="bestbadge">${usd(purchaseReferenceValue(x))}</span>`:(b.which?`<span class="bestbadge">${esc(b.price)}</span>`:"Toque para abrir")}</div>
+    <div><div class="py-title">${esc(x.product||"Novo produto")}</div><div class="py-sub">${purchased?`✓ Comprado • ${esc(finalInfo.store)}`:(b.which?`Melhor: ${esc(b.store)}`:"Sem comparação de lojas")}${x.compras_store?` • CP: ${esc(x.compras_store)}`:""}</div></div>
+    <div class="py-best">${purchased?`<strong>${brl(finalInfo.brl)}</strong>`:(b.which?`<span class="bestbadge">${b.brl?brl(b.brl):esc(b.price)}</span>`:"Toque para abrir")}</div>
    </summary>
    <div class="py-edit" onclick="event.stopPropagation()">
     <div class="py-compact-form">
-      <input class="py-product-name" value="${esc(x.product)}" placeholder="Nome do produto" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','product',this.value)">
-      <div class="compact-money-row">
+      <div class="py-product-top">
+        <input class="py-product-name" value="${esc(x.product)}" placeholder="Nome do produto" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','product',this.value)">
+        <select aria-label="Loja CP" onfocus="typing=true" onchange="typing=false;editProduct('${x.id}','compras_store',this.value)">${storeOptionsHtml(x.compras_store,"Loja CP")}</select>
+      </div>
+
+      <div class="cp-reference-row">
         <div class="cp-box"><div class="cp-label">CP</div><button class="info-btn" type="button" onclick="cpInfo()" title="O que significa CP?">ⓘ</button></div>
-        <div class="moneyfield"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.compras_price,2)}" placeholder="Valor" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','compras_price',parsePtNumber(this.value))"></div>
+        <label class="field-mini">Preço no Compras Paraguai
+          <div class="moneyfield"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.compras_price,2)}" placeholder="0,00" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','compras_price',parsePtNumber(this.value))"></div>
+        </label>
       </div>
-      <div class="compact-store-row">
-        <input list="storeOptions" value="${esc(x.store1)}" placeholder="Loja 1" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','store1',this.value)">
-        <div class="moneyfield ${b.which==="1"||b.which==="both"?"bestprice":""}"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.price1,2)}" placeholder="Valor" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','price1',parsePtNumber(this.value))"></div>
+
+      <div class="store-quote-card ${b.which==="1"||b.which==="both"?"best":""}">
+        <div class="store-quote-title"><b>Loja 1</b>${b.which==="1"||b.which==="both"?'<span class="bestbadge">Menor custo</span>':""}</div>
+        <select class="quote-store-select" onfocus="typing=true" onchange="typing=false;editProduct('${x.id}','store1',this.value)">${storeOptionsHtml(x.store1,"Selecionar Loja 1")}</select>
+
+        <div class="store-quote-grid">
+          <div class="store-calc-row">
+            <span class="calc-label">Cotação do dólar da loja</span>
+            <div class="moneyfield"><span>R$</span><input type="text" inputmode="decimal" value="${plainPt(x.rate1,2)}" placeholder="0,00" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','rate1',parsePtNumber(this.value))"></div>
+          </div>
+
+          <div class="store-calc-row">
+            <span class="calc-label">Valor do produto</span>
+            <div class="moneyfield"><span>US$</span><input type="text" inputmode="decimal" value="${plainPt(x.price1,2)}" placeholder="0,00" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','price1',parsePtNumber(this.value))"></div>
+          </div>
+
+          <div class="store-calc-result">
+            <small>Conversão automática</small>
+            <div class="converted-brl" aria-readonly="true">${convertedQuoteText(q1)}</div>
+          </div>
+        </div>
       </div>
-      <div class="compact-store-row">
-        <input list="storeOptions" value="${esc(x.store2)}" placeholder="Loja 2" onfocus="typing=true" onblur="typing=false;editProduct('${x.id}','store2',this.value)">
-        <div class="moneyfield ${b.which==="2"||b.which==="both"?"bestprice":""}"><span>US$</span><input type="text" inputmode="decimal" autocomplete="off" value="${plainPt(x.price2,2)}" placeholder="Valor" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','price2',parsePtNumber(this.value))"></div>
+
+      <div class="store-quote-card ${b.which==="2"||b.which==="both"?"best":""}">
+        <div class="store-quote-title"><b>Loja 2</b>${b.which==="2"||b.which==="both"?'<span class="bestbadge">Menor custo</span>':""}</div>
+        <select class="quote-store-select" onfocus="typing=true" onchange="typing=false;editProduct('${x.id}','store2',this.value)">${storeOptionsHtml(x.store2,"Selecionar Loja 2")}</select>
+
+        <div class="store-quote-grid">
+          <div class="store-calc-row">
+            <span class="calc-label">Cotação do dólar da loja</span>
+            <div class="moneyfield"><span>R$</span><input type="text" inputmode="decimal" value="${plainPt(x.rate2,2)}" placeholder="0,00" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','rate2',parsePtNumber(this.value))"></div>
+          </div>
+
+          <div class="store-calc-row">
+            <span class="calc-label">Valor do produto</span>
+            <div class="moneyfield"><span>US$</span><input type="text" inputmode="decimal" value="${plainPt(x.price2,2)}" placeholder="0,00" onfocus="typing=true;this.select()" oninput="maskUsdTyping(this)" onblur="typing=false;editProduct('${x.id}','price2',parsePtNumber(this.value))"></div>
+          </div>
+
+          <div class="store-calc-result">
+            <small>Conversão automática</small>
+            <div class="converted-brl" aria-readonly="true">${convertedQuoteText(q2)}</div>
+          </div>
+        </div>
       </div>
-      <div class="bestbox"><small>Menor preço cotado</small><br>${b.which?`<span class="bestbadge">${esc(b.text)}</span>`:"Preencha Loja 1 e/ou Loja 2"}</div>
-      <div class="purchase-toggle"><label><input type="checkbox" ${purchased?"checked":""} onchange="editProduct('${x.id}','purchased',this.checked)"> Produto comprado</label><span class="purchased-note">${purchased?"entra no total de compras":"ainda em pesquisa"}</span></div>
+
+      <div class="bestbox"><small>Menor custo final</small><br>${b.which?`<span class="bestbadge">${esc(b.store)} • ${brl(b.brl)}</span>`:"Preencha loja, cotação e preço para comparar"}</div>
+      <div class="purchase-toggle"><label><input type="checkbox" ${purchased?"checked":""} onchange="editProduct('${x.id}','purchased',this.checked)"> Produto comprado</label><span class="purchased-note">${purchased?"entra no total em reais":"ainda em pesquisa"}</span></div>
     </div>
     <button class="btn small" style="margin-top:7px;color:var(--danger)" onclick="deleteProduct('${x.id}')">Excluir item</button>
    </div>
@@ -2045,18 +2410,18 @@ document.addEventListener("click",function(e){
 });
 
 function addPyProduct(){
- const x={id:uid(),trip_id:TRIP,product:"",compras_price:0,store1:"",price1:0,store2:"",price2:0,done:false,purchased:false,purchase_store:"",purchase_price:0,sort_order:(state.products.at(-1)?.sort_order||0)+10,updated_at:new Date().toISOString()};
+ const x={id:uid(),trip_id:TRIP,product:"",compras_store:"",compras_price:0,store1:"",rate1:0,price1:0,store2:"",rate2:0,price2:0,done:false,purchased:false,purchase_store:"",purchase_price:0,sort_order:(state.products.at(-1)?.sort_order||0)+10,updated_at:new Date().toISOString()};
  state.products.push(x);cache();const box=document.getElementById("pyCompactList");if(box)box.querySelectorAll("details[open]").forEach(d=>d.removeAttribute("open"));renderProducts();
  const created=document.querySelector(`details.pywish[data-id="${x.id}"]`);if(created){created.setAttribute("open","");setTimeout(()=>created.scrollIntoView({behavior:"smooth",block:"center"}),60)}
  upsert("paraguay_products",x,"id")
 }
 function editProduct(id,key,val){
  const x=state.products.find(p=>p.id===id);if(!x)return;
- if(["compras_price","price1","price2","purchase_price"].includes(key))x[key]=parsePtNumber(val);
+ if(["compras_price","price1","price2","rate1","rate2","purchase_price"].includes(key))x[key]=parsePtNumber(val);
  else if(key==="purchased"){x.purchased=!!val}
  else x[key]=String(val);
  x.updated_at=new Date().toISOString();cache();upsert("paraguay_products",x,"id");
- if(key==="purchased")renderProducts();else setTimeout(()=>{if(!typing)renderProducts()},120)
+ if(key==="purchased")renderProducts();else setTimeout(()=>{if(!typing)renderProducts()},90)
 }
 function renderPurchaseSummary(){
  const box=document.getElementById("purchaseSummary");if(!box)return;
@@ -2067,34 +2432,290 @@ function renderPurchaseSummary(){
  }
  let total=0;
  const rows=arr.map(x=>{
-  const v=purchaseReferenceValue(x);
-  total+=v;
-  return `<div class="purchase-summary-row"><div><b>${esc(x.product||"Produto")}</b></div><strong>${usd(v)}</strong></div>`
+  const info=purchaseReferenceInfo(x);
+  total+=info.brl||0;
+  const meta=[info.store,info.usd?usd(info.usd):"",info.rate?`dólar ${brl(info.rate)}`:""].filter(Boolean).join(" • ");
+  return `<div class="purchase-summary-row"><div><b>${esc(x.product||"Produto")}</b><span class="purchase-meta">${esc(meta)}</span></div><strong>${brl(info.brl)}</strong></div>`
  }).join("");
  box.innerHTML=`<div class="purchase-summary-list">${rows}</div>
  <div class="purchase-total single-total">
-   <div class="result"><span>Total das compras</span><b>${usd(total)}</b><small>${arr.length} ${arr.length===1?"item comprado":"itens comprados"}</small></div>
+   <div class="result"><span>Total das compras</span><b>${brl(total)}</b><small>${arr.length} ${arr.length===1?"item comprado":"itens comprados"}</small></div>
  </div>`
 }
 function deleteProduct(id){state.products=state.products.filter(p=>p.id!==id);cache();renderProducts();removeRow("paraguay_products","id=eq."+id+"&trip_id=eq."+TRIP)}
 
+
 function selectStoreDay(day){storeDay=day;renderStores()}
-function renderStores(){document.getElementById("daySun").classList.toggle("active",storeDay==="sun");document.getElementById("dayThu").classList.toggle("active",storeDay==="thu");const key=storeDay==="sun"?"closeSun":"closeThu",hours=storeDay==="sun"?"sun":"thu";const arr=[...STORES].sort((a,b)=>a[key]-b[key]||a.name.localeCompare(b.name));document.getElementById("storeList").innerHTML=arr.map(s=>{const closed=s[key]>=9999;return`<div class="storecard ${closed?"closed":""}"><div class="storetop"><b>${s.name}</b><span class="closing">${closed?"Fechado":s[hours]}</span></div><div class="hoursfull">${s.weekday}<br>${s.sat}<br>Dom: ${s.sun}</div><a class="store-map-btn" target="_blank" rel="noopener" href="${s.map}">📍 Como chegar</a></div>`}).join("")}
+function storeTagPickerHtml(selected=[]){
+ const set=new Set(Array.isArray(selected)?selected:[]);
+ return STORE_TAGS.map(tag=>`<label class="store-tag-choice"><input type="checkbox" value="${esc(tag)}" ${set.has(tag)?"checked":""}><span>${esc(tag)}</span></label>`).join("")
+}
+function renderNewStoreTags(selected=[]){
+ const box=document.getElementById("newStoreTags");if(box)box.innerHTML=storeTagPickerHtml(selected)
+}
+function readStoreTags(containerId){
+ const box=document.getElementById(containerId);if(!box)return[];
+ return [...box.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value)
+}
+function parseManualTags(value){
+ return [...new Set(String(value||"").split(",").map(x=>x.trim()).filter(Boolean).map(x=>x.slice(0,30)))].slice(0,12)
+}
+function mergeTags(...groups){
+ return [...new Set(groups.flat().filter(Boolean))].slice(0,16)
+}
+function storeTagsView(tags=[]){
+ return Array.isArray(tags)&&tags.length?`<div class="store-tags-view">${tags.map(t=>`<span class="store-tag">${esc(t)}</span>`).join("")}</div>`:""
+}
+
+function fillStoreSegmentSelect(){
+ const select=document.getElementById("newStoreSegment");if(!select)return;
+ if(!select.options.length)select.innerHTML=STORE_SEGMENTS.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("")
+}
+function fillStoreCatalogSelect(){
+ const select=document.getElementById("storeCatalogSelect");if(!select)return;
+ const existing=new Set((state.stores||[]).map(s=>String(s.name).toLowerCase()));
+ select.innerHTML='<option value="">Escolha uma loja</option>'+
+  STORE_CATALOG.map((s,i)=>{
+   const disabled=!s.manual&&existing.has(String(s.name).toLowerCase());
+   return `<option value="${i}" ${disabled?"disabled":""}>${esc(s.name)}${disabled?" • já adicionada":""}</option>`
+  }).join("")
+}
+function fillQuickStoreSegmentSelect(){
+ const select=document.getElementById("quickStoreSegment");if(!select)return;
+ if(!select.options.length)select.innerHTML=STORE_SEGMENTS.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("")
+}
+function toggleQuickStorePanel(force){
+ if(isViewer())return viewerNotice();
+ fillQuickStoreSegmentSelect();
+ const quick=document.getElementById("quickStorePanel");
+ if(!quick)return;
+ const show=typeof force==="boolean"?force:!quick.classList.contains("show");
+ quick.classList.toggle("show",show);
+ if(show)setTimeout(()=>document.getElementById("quickStoreName")?.focus(),50)
+}
+async function addQuickParaguayStore(){
+ if(isViewer())return viewerNotice();
+ const name=(document.getElementById("quickStoreName")?.value||"").trim();
+ const segment=document.getElementById("quickStoreSegment")?.value||"Outros";
+ const sunday=(document.getElementById("quickStoreSunday")?.value||"").trim();
+ const thursday=(document.getElementById("quickStoreThursday")?.value||"").trim();
+ const tags=parseManualTags(document.getElementById("quickStoreTags")?.value||"");
+ if(!name){alert("Digite o nome da loja.");return}
+ if((state.stores||[]).some(s=>String(s.name).toLowerCase()===name.toLowerCase())){alert("Essa loja já está cadastrada.");return}
+ const now=new Date().toISOString();
+ const x={
+  id:uid(),trip_id:TRIP,name,segment,tags,
+  weekday:"",saturday:"",sunday,thursday,
+  close_sun:parseCloseMinutes(sunday),close_thu:parseCloseMinutes(thursday),
+  map_url:mapsDirectionForStore(name),google_place_id:"",google_maps_uri:"",hours_json:{},
+  google_updated_at:null,created_at:now,updated_at:now
+ };
+ state.stores.push(x);cache();renderStores();renderProducts();fillStoreCatalogSelect();
+ upsert("paraguay_stores",x,"id");
+ ["quickStoreName","quickStoreSunday","quickStoreThursday","quickStoreTags"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
+ toggleQuickStorePanel(false)
+}
+
+function toggleStoreAddPanel(force){
+ fillStoreSegmentSelect();fillStoreCatalogSelect();renderNewStoreTags([]);
+ const panel=document.getElementById("storeAddPanel");if(!panel)return;
+ const quick=document.getElementById("quickStorePanel");
+ const show=typeof force==="boolean"?force:!panel.classList.contains("show");
+ panel.classList.toggle("show",show);
+ if(show)quick?.classList.remove("show");
+ if(!show){
+  const select=document.getElementById("storeCatalogSelect");if(select)select.value="";
+  document.getElementById("catalogStorePreview").style.display="none";
+  document.getElementById("manualStoreFields").style.display="none";
+ }
+}
+function selectStoreCatalog(value){
+ const preview=document.getElementById("catalogStorePreview");
+ const manual=document.getElementById("manualStoreFields");
+ if(!value){preview.style.display="none";manual.style.display="none";renderNewStoreTags([]);return}
+ const s=STORE_CATALOG[Number(value)];
+ if(!s)return;
+ fillStoreSegmentSelect();renderNewStoreTags(s.tags||[]);
+ const seg=document.getElementById("newStoreSegment");if(seg)seg.value=s.segment||"Outros";
+ if(s.manual){
+  preview.style.display="none";manual.style.display="block";
+  document.getElementById("newStoreName").value="";
+  ["newStoreWeekday","newStoreSaturday","newStoreSunday","newStoreThursday"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
+  setTimeout(()=>document.getElementById("newStoreName")?.focus(),50);
+  return
+ }
+ manual.style.display="none";
+ preview.style.display="block";
+ preview.innerHTML=`<b>${esc(s.name)}</b><span>${esc(s.segment||"Outros")}</span>${storeTagsView(s.tags||[])}<p>${esc(s.weekday||"")}<br>${esc(s.saturday||"")}<br>Dom: ${esc(s.sunday||"")}</p>`
+}
+function mapsDirectionForStore(name){
+ return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(name+" Ciudad del Este Paraguay")+"&travelmode=walking"
+}
+function parseCloseMinutes(textValue){
+ const s=String(textValue||"").trim().toLowerCase();
+ if(!s||s.includes("fechado"))return 9999;
+ const matches=[...s.matchAll(/(\d{1,2})[:h](\d{2})/g)];
+ if(!matches.length)return 9999;
+ const last=matches.at(-1);
+ return Number(last[1])*60+Number(last[2])
+}
+async function addParaguayStore(){
+ if(isViewer())return viewerNotice();
+ const selected=document.getElementById("storeCatalogSelect")?.value;
+ if(selected===""||selected==null){alert("Selecione uma loja.");return}
+ const chosen=STORE_CATALOG[Number(selected)];
+ if(!chosen)return;
+ let x;
+ if(chosen.manual){
+  const name=(document.getElementById("newStoreName")?.value||"").trim();
+  const segment=document.getElementById("newStoreSegment")?.value||"Outros";
+  const weekday=(document.getElementById("newStoreWeekday")?.value||"").trim();
+  const saturday=(document.getElementById("newStoreSaturday")?.value||"").trim();
+  const sunday=(document.getElementById("newStoreSunday")?.value||"").trim();
+  const thursday=(document.getElementById("newStoreThursday")?.value||"").trim();
+  if(!name){alert("Digite o nome da loja.");return}
+  if((state.stores||[]).some(s=>String(s.name).toLowerCase()===name.toLowerCase())){alert("Essa loja já está cadastrada.");return}
+  x={id:uid(),trip_id:TRIP,name,segment,tags:mergeTags(readStoreTags("newStoreTags"),parseManualTags(document.getElementById("newStoreCustomTags")?.value||"")),weekday,saturday,sunday,thursday,
+    close_sun:parseCloseMinutes(sunday),close_thu:parseCloseMinutes(thursday||weekday),
+    map_url:mapsDirectionForStore(name),google_place_id:"",google_maps_uri:"",hours_json:{},
+    google_updated_at:null,created_at:new Date().toISOString(),updated_at:new Date().toISOString()}
+ }else{
+  if((state.stores||[]).some(s=>String(s.name).toLowerCase()===String(chosen.name).toLowerCase())){alert("Essa loja já está cadastrada.");return}
+  x={id:uid(),trip_id:TRIP,...chosen,tags:mergeTags(readStoreTags("newStoreTags"),parseManualTags(document.getElementById("newStoreCustomTags")?.value||"")),catalog:undefined,
+    google_place_id:"",google_maps_uri:"",hours_json:{},google_updated_at:null,
+    created_at:new Date().toISOString(),updated_at:new Date().toISOString()}
+ }
+ state.stores.push(x);cache();renderStores();renderProducts();fillStoreCatalogSelect();
+ upsert("paraguay_stores",x,"id");
+ toggleStoreAddPanel(false)
+}
+async function deleteParaguayStore(id){
+ if(isViewer())return viewerNotice();
+ const s=(state.stores||[]).find(x=>x.id===id);if(!s)return;
+ if(!confirm(`Excluir ${s.name} da lista de lojas?`))return;
+ state.stores=state.stores.filter(x=>x.id!==id);cache();renderStores();renderProducts();fillStoreCatalogSelect();
+ removeRow("paraguay_stores","id=eq."+encodeURIComponent(id)+"&trip_id=eq."+TRIP)
+}
+function toggleStoreEdit(id){
+ const panel=document.getElementById("storeEdit-"+id);if(panel)panel.classList.toggle("show")
+}
+function saveStoreEdit(id){
+ if(isViewer())return viewerNotice();
+ const s=(state.stores||[]).find(x=>x.id===id);if(!s)return;
+ const get=k=>(document.getElementById(`${k}-${id}`)?.value||"").trim();
+ s.segment=get("segment")||s.segment||"Outros";
+ s.tags=mergeTags(readStoreTags("tags-"+id),parseManualTags(document.getElementById("customtags-"+id)?.value||""));
+ s.weekday=get("weekday");s.saturday=get("saturday");s.sunday=get("sunday");s.thursday=get("thursday");
+ s.close_sun=parseCloseMinutes(s.sunday);s.close_thu=parseCloseMinutes(s.thursday||s.weekday);
+ s.updated_at=new Date().toISOString();
+ cache();upsert("paraguay_stores",s,"id");renderStores();renderProducts()
+}
+
+function storeHoursText(s){
+ if(storeDay==="sun")return s.sunday||"Horário não sincronizado";
+ return s.thursday||s.weekday||"Horário não sincronizado"
+}
+function storeFullHours(s){
+ const lines=[];
+ if(s.weekday)lines.push(s.weekday);
+ if(s.saturday)lines.push(s.saturday);
+ if(s.sunday)lines.push("Dom: "+s.sunday);
+ if(!s.weekday&&s.thursday)lines.push("Qui: "+s.thursday);
+ return lines.length?lines.join("<br>"):"Horários ainda não disponíveis."
+}
+function renderStores(){
+ const sunBtn=document.getElementById("daySun"),thuBtn=document.getElementById("dayThu");
+ sunBtn?.classList.toggle("active",storeDay==="sun");thuBtn?.classList.toggle("active",storeDay==="thu");
+ const key=storeDay==="sun"?"close_sun":"close_thu";
+ const arr=[...(state.stores?.length?state.stores:DEFAULT_STORES)].sort((a,b)=>(+a[key]||9999)-(+b[key]||9999)||String(a.name).localeCompare(String(b.name)));
+ const box=document.getElementById("storeList");if(!box)return;
+ box.innerHTML=arr.map(s=>{
+  const close=+s[key]||9999,closed=close>=9999&&storeHoursText(s).toLowerCase().includes("fechado");
+  const map=s.google_maps_uri||s.map_url||mapsDirectionForStore(s.name);
+  return `<div class="storecard ${closed?"closed":""}">
+   <div class="storetop"><div><b>${esc(s.name)}</b><span class="store-segment">${esc(s.segment||"Outros")}</span>${storeTagsView(s.tags||[])}</div><span class="closing ${String(storeHoursText(s)).toLowerCase().includes("confirmar")?"store-unverified":""}">${closed?"Fechado":esc(storeHoursText(s))}</span></div>
+   <div class="hoursfull">${storeFullHours(s)}</div>
+   <div class="store-google-status">${String(storeHoursText(s)).toLowerCase().includes("confirmar")?"⚠️ Horário desta visita ainda precisa ser confirmado":"Horário salvo no roteiro"}</div>
+   <div class="store-card-actions">
+    <a class="store-map-btn" target="_blank" rel="noopener" href="${esc(map)}">📍 Como chegar</a>
+    <button class="store-edit-btn" type="button" onclick="toggleStoreEdit('${s.id}')">✏️ Editar horário</button>
+   </div>
+
+   <div id="storeEdit-${s.id}" class="store-edit-panel">
+    <div class="store-edit-grid">
+      <label class="field">Segmento<select id="segment-${s.id}">${STORE_SEGMENTS.map(v=>`<option value="${esc(v)}" ${v===(s.segment||"Outros")?"selected":""}>${esc(v)}</option>`).join("")}</select></label>
+      <div class="store-tags-editor">
+        <span>O que a loja vende?</span>
+        <div id="tags-${s.id}" class="store-tag-picker">${storeTagPickerHtml(s.tags||[])}</div>
+        <label class="field" style="margin-top:7px">Tags extras<input id="customtags-${s.id}" value="${esc((s.tags||[]).filter(t=>!STORE_TAGS.includes(t)).join(", "))}" placeholder="Ex.: papelaria, presentes"></label>
+      </div>
+      <label class="field">Segunda a sexta<input id="weekday-${s.id}" value="${esc(s.weekday||"")}" placeholder="Ex.: 07:00–16:00"></label>
+      <label class="field">Sábado<input id="saturday-${s.id}" value="${esc(s.saturday||"")}" placeholder="Ex.: 07:00–15:00"></label>
+      <label class="field">Domingo<input id="sunday-${s.id}" value="${esc(s.sunday||"")}" placeholder="Ex.: 08:00–12:00 ou Fechado"></label>
+      <label class="field">Quinta-feira<input id="thursday-${s.id}" value="${esc(s.thursday||"")}" placeholder="Ex.: 07:00–16:00"></label>
+    </div>
+    <div class="store-add-actions">
+      <button class="btn green small" type="button" onclick="saveStoreEdit('${s.id}')">Salvar horário</button>
+      <button class="btn small" type="button" onclick="toggleStoreEdit('${s.id}')">Fechar</button>
+      <button class="btn small" style="color:var(--danger)" type="button" onclick="deleteParaguayStore('${s.id}')">Excluir loja</button>
+    </div>
+   </div>
+  </div>`
+ }).join("")
+}
+
+function paraguayNoteAuthor(){
+ return authRole==="marina"?"marina":"flavia"
+}
+function renderParaguayNotes(){
+ const box=document.getElementById("pyNotesList");if(!box)return;
+ const hint=document.getElementById("pyNoteAuthorHint");
+ if(hint)hint.textContent=`Publicando como ${paraguayNoteAuthor()==="marina"?"Marina":"Flá"}`;
+ const arr=[...(state.notes||[])].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+ if(!arr.length){
+  box.innerHTML='<div class="empty-note">Ainda não há notas. Usem este espaço para guardar dicas, endereços, lembretes e descobertas do Paraguai.</div>';
+  return
+ }
+ box.innerHTML=arr.map(n=>{
+  const author=n.author==="marina"?"Marina":"Flá";
+  const kind=n.kind==="dica"?"dica":"nota";
+  return `<article class="py-note-card">
+    <div class="py-note-head">
+      ${diaryAvatar(n.author)}
+      <div class="py-note-who"><b>${author}</b><small>${formatDiaryDate(n.created_at)}</small></div>
+      <button class="py-note-delete" type="button" onclick="deleteParaguayNote('${n.id}')" aria-label="Excluir nota">✕</button>
+    </div>
+    <span class="py-note-kind ${kind}">${kind==="dica"?"💡 Dica":"📝 Nota"}</span>
+    <p class="py-note-body">${esc(n.body||"").replace(/\n/g,"<br>")}</p>
+  </article>`
+ }).join("")
+}
+function addParaguayNote(){
+ if(isViewer())return viewerNotice();
+ const input=document.getElementById("pyNoteText");
+ const body=(input?.value||"").trim();
+ if(!body){alert("Escreva uma nota ou dica.");return}
+ const kind=document.getElementById("pyNoteKind")?.value==="dica"?"dica":"nota";
+ const now=new Date().toISOString();
+ const n={id:uid(),trip_id:TRIP,author:paraguayNoteAuthor(),kind,body:body.slice(0,2500),created_at:now,updated_at:now};
+ state.notes.unshift(n);cache();renderParaguayNotes();upsert("paraguay_notes",n,"id");
+ input.value=""
+}
+function deleteParaguayNote(id){
+ if(isViewer())return viewerNotice();
+ if(!confirm("Excluir esta nota do Paraguai?"))return;
+ state.notes=state.notes.filter(n=>n.id!==id);cache();renderParaguayNotes();
+ removeRow("paraguay_notes","id=eq."+encodeURIComponent(id)+"&trip_id=eq."+TRIP)
+}
 
 
 function renderParaguayContext(){
  const box=document.getElementById("pyDayContext");if(!box)return;
- if(paraguayDayKey==="2026-09-27"){box.className="py-day-context show";box.innerHTML='<b>DOM • 27/09 — Paraguai + troca de hotel</b><div class="py-context-steps"><span>Check-out Nanai cedo</span><span>Deixar malas no Luz</span><span>Compras em Ciudad del Este</span><span>Check-in Luz a partir de 14h</span></div>';storeDay="sun"}
+ if(paraguayDayKey==="2026-09-27"){box.className="py-day-context show";box.innerHTML='<b>DOM • 27/09 — Paraguai</b><div class="py-context-steps"><span>Sair cedo do hotel</span><span>Compras em Ciudad del Este</span><span>Priorizar lojas que fecham primeiro</span><span>Retorno ao mesmo hotel no fim do dia</span></div>';storeDay="sun"}
  else if(paraguayDayKey==="2026-10-01"){box.className="py-day-context show";box.innerHTML='<b>QUI • 01/10 — Segundo dia de Paraguai</b><div class="py-context-steps"><span>Sair bem cedo</span><span>Priorizar compras pendentes</span><span>Organizar comprovantes e presentes no fim do dia</span></div>';storeDay="thu"}
  else{box.className="py-day-context";box.innerHTML=""}
  const cs=document.getElementById("pyDayChecklistSection");
  if(cs){cs.style.display=paraguayDayKey?"block":"none";if(paraguayDayKey)renderDayChecklist(paraguayDayKey,"pyDayChecklist")}
- const hs=document.getElementById("pyHotelSection");
- if(hs){
-  const showHotel=paraguayDayKey==="2026-09-27"&&!isViewer();
-  hs.style.display=showHotel?"block":"none";
-  if(showHotel)refreshHotelAttachments("2026-09-27","pyHotelAttachments")
- }
  const ds=document.getElementById("pyDayDiarySection");
  if(ds){ds.style.display=paraguayDayKey?"block":"none";if(paraguayDayKey)renderDayDiaryPreview(paraguayDayKey,"pyDayDiaryPreview")}
 }
@@ -2205,7 +2826,7 @@ function renderDayPage(){
 
 function applyPretripVisibility(){const cutoff=new Date(2026,8,26,0,0,0),now=new Date(),hidden=now>=cutoff&&localStorage.getItem("show_pretrip_after_26")!=="1";document.getElementById("pretripMain").style.display=hidden?"none":"block";document.getElementById("pretripCollapsed").style.display=hidden?"block":"none"}
 function showPretrip(){localStorage.setItem("show_pretrip_after_26","1");applyPretripVisibility()}
-function renderAll(){renderPreparations();renderList("gift","giftList");renderDays();renderSettings();renderExpenses();renderTickets();renderProducts();renderStores();applyPretripVisibility();if(currentDayKey)renderDayPage()}
+function renderAll(){renderPreparations();renderList("gift","giftList");renderDays();renderSettings();renderExpenses();renderTickets();fillQuickStoreSegmentSelect();renderProducts();renderStores();renderParaguayNotes();applyPretripVisibility();if(currentDayKey)renderDayPage()}
 
 const SETTING_INPUTS={
  mainUsdAmount:["usd_amount","USD"],usdAmount:["usd_amount","USD"],
