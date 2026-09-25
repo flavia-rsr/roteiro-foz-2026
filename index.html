@@ -711,6 +711,16 @@ h3{font-weight:750}
 .hotel-upload-row .btn[disabled]{opacity:.62;cursor:wait}
 .hotel-upload-progress{color:#6c786e!important;font-weight:750}
 
+
+.day-weather{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px;color:#45584d;font-size:10px;font-weight:850}
+.day-weather-main{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:#f3f7f1;border:1px solid #dce8d8;color:#365f31}
+.day-weather-rain{color:#607282;font-size:9px;font-weight:800}
+.day-weather-place{color:var(--muted);font-size:9px;font-weight:750}
+.day-weather.loading .day-weather-main{background:#f7f5f2;border-color:#e8e2db;color:#777}
+.day-weather.unavailable .day-weather-main{background:#faf7f5;border-color:#e8e1dc;color:#8a7a72}
+.weather-source{margin-top:9px;text-align:center;color:var(--muted);font-size:8px;line-height:1.35}
+.weather-source a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
 </style>
 </head>
 <body class="auth-pending">
@@ -780,6 +790,7 @@ h3{font-weight:750}
     <small id="progressHint">A viagem começa em 25/09.</small>
   </div>
   <div id="daysList" class="day-summary-grid"></div>
+  <div class="weather-source">Previsão automática • <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> • atualiza a cada 30 min</div>
 </div></section>
 
 <section id="preparativos"><div class="wrap">
@@ -1212,7 +1223,7 @@ const DIARY_FN=SUPA+"/functions/v1/trip-diary-auth";
 const DIARY_VIEW_FN=SUPA+"/functions/v1/trip-diary-view";
 const ATTACH_FN=SUPA+"/functions/v1/trip-day-attachments-auth";
 const AUTH_STORE="foz_auth_session_v1",LAST_USER_STORE="foz_last_auth_user";
-const CACHE="foz_shared_v46",QUEUE="foz_ops_v46";
+const CACHE="foz_shared_v47",QUEUE="foz_ops_v47";
 let authData=null,authRole="",authName="",appStarted=false,pollTimer=null;
 let H={apikey:KEY,Authorization:"Bearer "+KEY,"Content-Type":"application/json"};
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -1340,9 +1351,10 @@ async function enterPrivateSite(){
   restore();renderAll();
   await fetchAll();
   await initDiary();
+  initTripWeather();
   pollTimer=setInterval(fetchAll,2200)
  }else{
-  renderAll();await fetchAll();await initDiary()
+  renderAll();await fetchAll();await initDiary();initTripWeather()
  }
  applyAccessMode();
  refreshRouteMap()
@@ -1359,7 +1371,7 @@ async function openFloatingDiary(){
 
 function logoutTrip(){
  if(!confirm("Sair deste aparelho?"))return;
- if(pollTimer){clearInterval(pollTimer);pollTimer=null}
+ if(pollTimer){clearInterval(pollTimer);pollTimer=null}if(weatherTimer){clearInterval(weatherTimer);weatherTimer=null}
  authData=null;authRole="";authName="";appStarted=false;
  localStorage.removeItem(AUTH_STORE);
  localStorage.removeItem(CACHE);
@@ -1443,7 +1455,29 @@ const uid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxx
 let state={items:[],days:[],dayChecklist:[],expenses:[],products:[],stores:[],notes:[],tickets:[],settings:{usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200}};
 let diaryPosts=[],diaryUnlocked=false,diaryFilter="all",diaryAuthor=localStorage.getItem("foz_diary_author")||"",diaryDraftDay="",diaryQueuedFiles=[];
 
-let pollBusy=false,queueBusy=false,typing=false,attachmentBusy=false,openStoreEditId=null,hotelAttachmentState={},storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
+let pollBusy=false,queueBusy=false,typing=false,attachmentBusy=false,openStoreEditId=null,hotelAttachmentState={},tripWeather={},weatherLoading=false,weatherTimer=null,storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
+
+const WEATHER_CACHE="foz_weather_v1";
+const WEATHER_CACHE_TTL=30*60*1000;
+const TRIP_WEATHER_LOCATIONS={
+ curitiba:{name:"Curitiba",lat:-25.4284,lon:-49.2733},
+ foz:{name:"Foz do Iguaçu",lat:-25.5163,lon:-54.5854},
+ cde:{name:"Ciudad del Este",lat:-25.5097,lon:-54.6111},
+ iguazu:{name:"Puerto Iguazú",lat:-25.5972,lon:-54.5786},
+ floripa:{name:"Florianópolis",lat:-27.5945,lon:-48.5477}
+};
+const TRIP_WEATHER_BY_DAY={
+ "2026-09-25":"curitiba",
+ "2026-09-26":"foz",
+ "2026-09-27":"cde",
+ "2026-09-28":"foz",
+ "2026-09-29":"iguazu",
+ "2026-09-30":"foz",
+ "2026-10-01":"cde",
+ "2026-10-02":"curitiba",
+ "2026-10-03":"floripa"
+};
+
 
 const DEFAULT_PENDING=[
 ["p01","Remédio Néli",false,10],["p02","Remédio Lina",false,20],["p03","Lavar carro",false,30],["p04","Comprar ração (gatos e cachorros)",false,40],
@@ -2164,6 +2198,84 @@ function progressByDate(){
  const today=travelToday(),completed=ITIN.filter(d=>d.key<today).length;
  return {today,completed:today>ITIN.at(-1).key?ITIN.length:completed,pct:today>ITIN.at(-1).key?100:Math.round(completed/ITIN.length*100)}
 }
+function weatherVisual(code){
+ const c=Number(code);
+ if(c===0)return{icon:"☀️",label:"Céu limpo"};
+ if(c===1)return{icon:"🌤️",label:"Poucas nuvens"};
+ if(c===2)return{icon:"⛅",label:"Parcialmente nublado"};
+ if(c===3)return{icon:"☁️",label:"Nublado"};
+ if(c===45||c===48)return{icon:"🌫️",label:"Neblina"};
+ if(c>=51&&c<=57)return{icon:"🌦️",label:"Garoa"};
+ if(c>=61&&c<=67)return{icon:"🌧️",label:"Chuva"};
+ if(c>=71&&c<=77)return{icon:"🌨️",label:"Neve"};
+ if(c>=80&&c<=82)return{icon:"🌦️",label:"Pancadas"};
+ if(c>=85&&c<=86)return{icon:"🌨️",label:"Neve"};
+ if(c>=95)return{icon:"⛈️",label:"Trovoadas"};
+ return{icon:"🌡️",label:"Previsão"}
+}
+function weatherCacheLoad(){
+ try{
+  const raw=JSON.parse(localStorage.getItem(WEATHER_CACHE)||"null");
+  if(raw?.data&&Date.now()-(raw.savedAt||0)<WEATHER_CACHE_TTL){tripWeather=raw.data;return true}
+ }catch{}
+ return false
+}
+function weatherCacheSave(){
+ try{localStorage.setItem(WEATHER_CACHE,JSON.stringify({savedAt:Date.now(),data:tripWeather}))}catch{}
+}
+function weatherForDay(dayKey){
+ const key=TRIP_WEATHER_BY_DAY[dayKey],place=TRIP_WEATHER_LOCATIONS[key];
+ return {place,data:tripWeather?.[dayKey]||null}
+}
+function dayWeatherHtml(dayKey){
+ const {place,data}=weatherForDay(dayKey);
+ if(!place)return"";
+ if(data){
+  const v=weatherVisual(data.code),rain=Number.isFinite(data.rain)?Math.round(data.rain):null;
+  return `<div class="day-weather">
+   <span class="day-weather-main">${v.icon} ${Math.round(data.min)}°–${Math.round(data.max)}° • ${v.label}</span>
+   ${rain!==null?`<span class="day-weather-rain">💧 ${rain}%</span>`:""}
+   <span class="day-weather-place">${esc(place.name)}</span>
+  </div>`
+ }
+ return `<div class="day-weather ${weatherLoading?"loading":"unavailable"}">
+  <span class="day-weather-main">${weatherLoading?"⏳ Previsão…":"🌡️ Previsão indisponível"}</span>
+  <span class="day-weather-place">${esc(place.name)}</span>
+ </div>`
+}
+async function fetchWeatherLocation(key,loc){
+ const url=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&past_days=10&forecast_days=16`;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+ try{
+  const r=await fetch(url,{signal:controller.signal});
+  if(!r.ok)throw new Error("weather");
+  const j=await r.json(),d=j?.daily||{},byDate={};
+  (d.time||[]).forEach((date,i)=>{
+   byDate[date]={code:d.weather_code?.[i],max:Number(d.temperature_2m_max?.[i]),min:Number(d.temperature_2m_min?.[i]),rain:Number(d.precipitation_probability_max?.[i])}
+  });
+  return {key,byDate}
+ }catch{return {key,byDate:{}}}
+ finally{clearTimeout(timer)}
+}
+async function refreshTripWeather(force=false){
+ if(weatherLoading)return;
+ if(!force&&weatherCacheLoad()){renderDays();return}
+ weatherLoading=true;renderDays();
+ try{
+  const results=await Promise.all(Object.entries(TRIP_WEATHER_LOCATIONS).map(([key,loc])=>fetchWeatherLocation(key,loc)));
+  const next={};
+  results.forEach(({key,byDate})=>{
+   Object.entries(TRIP_WEATHER_BY_DAY).forEach(([day,locKey])=>{if(locKey===key&&byDate[day])next[day]=byDate[day]})
+  });
+  if(Object.keys(next).length){tripWeather=next;weatherCacheSave()}
+ }finally{weatherLoading=false;renderDays()}
+}
+function initTripWeather(){
+ weatherCacheLoad();renderDays();refreshTripWeather(!Object.keys(tripWeather||{}).length);
+ if(weatherTimer)clearInterval(weatherTimer);
+ weatherTimer=setInterval(()=>refreshTripWeather(true),30*60*1000)
+}
+
 function renderDays(){
  const p=progressByDate();
  document.getElementById("progressText").textContent=p.pct+"%";
@@ -2179,7 +2291,7 @@ function renderDays(){
   const [dow,date]=d.date.split(" • ");
   return `<article class="day-summary-card ${past?"past":""} ${today?"today":""}" onclick="${isPy?`openParaguay('${d.key}')`:`openDayPage('${d.key}')`}">
     <div class="day-summary-date">${dow}<b>${date}</b></div>
-    <div><h3>${esc(d.title)}${today?'<span class="today-pill">HOJE</span>':""}</h3><p>${esc(d.tags.slice(0,2).join(" • "))}</p>${tickets?`<span class="ticket-pill">🎟️ ${tickets} ${tickets===1?"passeio":"passeios"} com ingresso</span>`:""}${!isViewer()&&HOTEL_STAYS[d.key]?'<span class="hotel-summary-pill">🏨 Reserva do hotel</span>':""}</div>
+    <div><h3>${esc(d.title)}${today?'<span class="today-pill">HOJE</span>':""}</h3><p>${esc(d.tags.slice(0,2).join(" • "))}</p>${dayWeatherHtml(d.key)}${tickets?`<span class="ticket-pill">🎟️ ${tickets} ${tickets===1?"passeio":"passeios"} com ingresso</span>`:""}${!isViewer()&&HOTEL_STAYS[d.key]?'<span class="hotel-summary-pill">🏨 Reserva do hotel</span>':""}</div>
     <span class="arrow">›</span>
   </article>`
  }).join("")
