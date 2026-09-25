@@ -700,6 +700,17 @@ h3{font-weight:750}
   .py-note-actions .btn{width:100%}
 }
 
+
+.hotel-attachment-status{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:#fbfaf8;
+  color:var(--muted);font-size:11px
+}
+.hotel-attachment-status.error{background:#fff6f6;border-color:#efd4d4;color:#8e5555}
+.hotel-attachment-status .btn{flex:0 0 auto}
+.hotel-upload-row .btn[disabled]{opacity:.62;cursor:wait}
+.hotel-upload-progress{color:#6c786e!important;font-weight:750}
+
 </style>
 </head>
 <body class="auth-pending">
@@ -1014,8 +1025,8 @@ h3{font-weight:750}
         <div id="dayHotelAttachments" class="hotel-attachment-list"></div>
         <div class="hotel-upload-row">
           <input id="dayHotelFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple style="display:none" onchange="uploadHotelAttachments(currentDayKey,this,'dayHotelAttachments')">
-          <button class="btn primary" type="button" onclick="document.getElementById('dayHotelFiles').click()">＋ Adicionar anexo</button>
-          <small>PDF ou imagem • até 10 MB por arquivo</small>
+          <button id="dayHotelUploadBtn" class="btn primary" type="button" onclick="document.getElementById('dayHotelFiles').click()">＋ Adicionar anexo</button>
+          <small id="dayHotelUploadHint">PDF ou imagem • até 10 MB por arquivo</small>
         </div>
       </div>
     </section>
@@ -1201,7 +1212,7 @@ const DIARY_FN=SUPA+"/functions/v1/trip-diary-auth";
 const DIARY_VIEW_FN=SUPA+"/functions/v1/trip-diary-view";
 const ATTACH_FN=SUPA+"/functions/v1/trip-day-attachments-auth";
 const AUTH_STORE="foz_auth_session_v1",LAST_USER_STORE="foz_last_auth_user";
-const CACHE="foz_shared_v44",QUEUE="foz_ops_v44";
+const CACHE="foz_shared_v46",QUEUE="foz_ops_v46";
 let authData=null,authRole="",authName="",appStarted=false,pollTimer=null;
 let H={apikey:KEY,Authorization:"Bearer "+KEY,"Content-Type":"application/json"};
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -1354,7 +1365,7 @@ function logoutTrip(){
  localStorage.removeItem(CACHE);
  localStorage.removeItem(QUEUE);
  localStorage.removeItem(LAST_USER_STORE);
- diaryPosts=[];diaryUnlocked=false;
+ diaryPosts=[];diaryUnlocked=false;hotelAttachmentState={};attachmentBusy=false;
  location.reload()
 }
 async function bootstrapPrivateSite(){
@@ -1432,7 +1443,7 @@ const uid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxx
 let state={items:[],days:[],dayChecklist:[],expenses:[],products:[],stores:[],notes:[],tickets:[],settings:{usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200}};
 let diaryPosts=[],diaryUnlocked=false,diaryFilter="all",diaryAuthor=localStorage.getItem("foz_diary_author")||"",diaryDraftDay="",diaryQueuedFiles=[];
 
-let pollBusy=false,queueBusy=false,typing=false,openStoreEditId=null,storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
+let pollBusy=false,queueBusy=false,typing=false,attachmentBusy=false,openStoreEditId=null,hotelAttachmentState={},storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
 
 const DEFAULT_PENDING=[
 ["p01","Remédio Néli",false,10],["p02","Remédio Lina",false,20],["p03","Lavar carro",false,30],["p04","Comprar ração (gatos e cachorros)",false,40],
@@ -1484,12 +1495,13 @@ const DEFAULT_STORES=[
 {name:"Galeria San Blas",segment:"Shopping / Multimarcas",tags:["Multimarcas","Eletrônicos","Moda","Beleza"],weekday:"Seg–sex 07:00–16:00",saturday:"Sáb 07:00–16:00",sunday:"A confirmar",thursday:"07:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Galeria+San+Blas+Ciudad+del+Este+Paraguay&travelmode=walking",hours_unverified:true},
 {name:"S.A. Shop (Shopping Paris)",segment:"Shopping / Multimarcas",tags:["Moda","Cosméticos","Perfumes","Casa","Eletrônicos","Brinquedos","Bebidas"],weekday:"Seg–sáb 07:00–19:00",saturday:"Sáb 07:00–19:00",sunday:"07:00–17:00",thursday:"07:00–19:00",close_sun:1020,close_thu:1140,map_url:"https://www.google.com/maps/dir/?api=1&destination=SA+Shop+Shopping+Paris+Ciudad+del+Este+Paraguay&travelmode=walking"},
 {name:"Shopping Itaipu",segment:"Shopping / Multimarcas",tags:["Multimarcas"],weekday:"Seg–sex 06:00–17:00",saturday:"Sáb 06:00–17:00",sunday:"07:00–14:00",thursday:"06:00–17:00",close_sun:840,close_thu:1020,map_url:"https://www.google.com/maps/dir/?api=1&destination=Shopping+Itaipu+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Horário Center",segment:"Outros",tags:[],weekday:"A confirmar",saturday:"A confirmar",sunday:"A confirmar",thursday:"A confirmar",close_sun:9999,close_thu:9999,map_url:"https://www.google.com/maps/dir/?api=1&destination=Horario+Center+Ciudad+del+Este+Paraguay&travelmode=walking",hours_unverified:true},
+{name:"Hogar Center",segment:"Casa & Eletrodomésticos",tags:["Casa","Acessórios","Moda","Pets"],weekday:"Seg–sáb 07:30–16:00",saturday:"Sáb 07:30–16:00",sunday:"08:00–12:30",thursday:"07:30–16:00",close_sun:750,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Hogar+Center+Py+Ciudad+del+Este+Paraguay&travelmode=walking"},
 {name:"Benetex",segment:"Têxtil",tags:["Têxtil","Moda"],weekday:"Seg–sáb 06:30–15:30",saturday:"Sáb 06:30–15:30",sunday:"Fechado",thursday:"06:30–15:30",close_sun:9999,close_thu:930,map_url:"https://www.google.com/maps/dir/?api=1&destination=Benetex+Rubio+Nu+Ciudad+del+Este+Paraguay&travelmode=walking"},
 {name:"Ponto Com",segment:"Shopping / Multimarcas",tags:["Perfumes","Cosméticos","Relógios","Bolsas","Casa","Suplementos"],weekday:"Seg–sáb 06:30–15:30",saturday:"Sáb 06:30–15:30",sunday:"Fechado",thursday:"06:30–15:30",close_sun:9999,close_thu:930,map_url:"https://www.google.com/maps/dir/?api=1&destination=Ponto+Com+Super+Store+Ciudad+del+Este+Paraguay&travelmode=walking"},
 {name:"Mix Importados",segment:"Shopping / Multimarcas",tags:["Brinquedos","Colecionáveis","Moda","Acessórios","Eletrônicos"],weekday:"Seg–sáb 07:00–16:00",saturday:"Sáb 07:00–16:00",sunday:"Fechado",thursday:"07:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Mix+Importados+Galeria+Zuni+Ciudad+del+Este+Paraguay&travelmode=walking"},
 {name:"Elegancia Company",segment:"Perfumes & Cosméticos",tags:["Perfumes","Cosméticos","Maquiagem"],weekday:"Seg–sáb 06:30–15:30",saturday:"Sáb 06:00–15:00",sunday:"Fechado",thursday:"06:30–15:30",close_sun:9999,close_thu:930,map_url:"https://www.google.com/maps/dir/?api=1&destination=Elegancia+Company+Ciudad+del+Este+Paraguay&travelmode=walking"},
-{name:"Atacado Connect",segment:"Eletrônicos",tags:["Eletrônicos","Games","Informática","Celulares","Áudio"],weekday:"Seg–sex 06:00–16:00",saturday:"Sáb 06:00–15:00",sunday:"Fechado",thursday:"06:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Atacado+Connect+Galeria+Jebai+Ciudad+del+Este+Paraguay&travelmode=walking"}
+{name:"Atacado Connect",segment:"Eletrônicos",tags:["Eletrônicos","Games","Informática","Celulares","Áudio"],weekday:"Seg–sex 06:00–16:00",saturday:"Sáb 06:00–15:00",sunday:"Fechado",thursday:"06:00–16:00",close_sun:9999,close_thu:960,map_url:"https://www.google.com/maps/dir/?api=1&destination=Atacado+Connect+Galeria+Jebai+Ciudad+del+Este+Paraguay&travelmode=walking"},
+{name:"Autoservice 8 de Agosto",segment:"Shopping / Multimarcas",tags:["Brinquedos","Multimarcas"],weekday:"Seg–sáb 05:30–14:50",saturday:"Sáb 05:30–14:50",sunday:"Fechado",thursday:"05:30–14:50",close_sun:9999,close_thu:890,map_url:"https://www.google.com/maps/dir/?api=1&destination=Autoservice+8+de+Agosto+Ciudad+del+Este+Paraguay&travelmode=walking"}
 ];
 
 const STORE_CATALOG=[
@@ -1507,7 +1519,7 @@ const STORE_TAGS=[
  "Têxtil","Moda","Acessórios","Bolsas","Relógios",
  "Perfumes","Cosméticos","Maquiagem","Beleza",
  "Brinquedos","Colecionáveis","Casa","Bebidas","Alimentos",
- "Suplementos","Multimarcas","Outros"
+ "Suplementos","Pets","Multimarcas","Outros"
 ];
 const DEFAULT_STORE_NAMES=new Set(DEFAULT_STORES.map(x=>x.name));
 
@@ -1534,7 +1546,7 @@ function upsert(table,body,conflict){enqueue({method:"POST",path:table+"?on_conf
 function removeRow(table,query){enqueue({method:"DELETE",path:table+"?"+query})}
 
 async function fetchAll(){
- if(pollBusy||typing||openStoreEditId||qload().length||queueBusy)return;pollBusy=true;
+ if(pollBusy||typing||attachmentBusy||openStoreEditId||qload().length||queueBusy)return;pollBusy=true;
  try{
   const [items,days,dayChecklist,expenses,settings,products,stores,notes,tickets]=await Promise.all([
    request("trip_items?trip_id=eq."+TRIP+"&category=in.(pending,gift)&order=category.asc,sort_order.asc"),
@@ -2745,19 +2757,23 @@ function goMainSection(id){currentDayKey=null;paraguayDayKey=null;document.getEl
 
 async function attachmentFetch(url,opt={},retry=true){
  const headers={apikey:KEY,Authorization:"Bearer "+currentAccessToken(),...(opt.headers||{})};
- let r=await fetch(url,{...opt,headers});
- if(r.status===401&&retry&&await refreshAuthSession())return attachmentFetch(url,opt,false);
- return r
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),20000);
+ try{
+  const r=await fetch(url,{...opt,headers,signal:opt.signal||controller.signal});
+  if(r.status===401&&retry&&await refreshAuthSession())return attachmentFetch(url,opt,false);
+  return r
+ }catch(e){
+  if(e?.name==="AbortError")throw new Error("A conexão demorou mais que o esperado. Tente novamente.");
+  throw e
+ }finally{clearTimeout(timer)}
 }
 function hotelFileIcon(mime){return mime==="application/pdf"?"📄":"🖼️"}
-async function refreshHotelAttachments(dayKey,mountId){
+function renderHotelAttachmentList(dayKey,mountId){
  const box=document.getElementById(mountId);if(!box||isViewer())return;
- box.innerHTML='<div class="notice">Carregando anexos…</div>';
- try{
-  const r=await attachmentFetch(ATTACH_FN+"?action=list&day_key="+encodeURIComponent(dayKey));
-  const data=await r.json().catch(()=>({}));
-  if(!r.ok)throw new Error(data.error||"Não foi possível carregar as reservas");
-  const arr=data.attachments||[];
+ const st=hotelAttachmentState[dayKey]||{};
+ if(st.loaded){
+  const arr=st.items||[];
   box.innerHTML=arr.length?arr.map(x=>`<div class="hotel-file">
    <div class="hotel-file-icon">${hotelFileIcon(x.mime_type)}</div>
    <div class="hotel-file-info"><b>${esc(x.file_name||"Reserva")}</b><small>${esc(x.label||HOTEL_STAYS[dayKey]?.name||"Hospedagem")}</small></div>
@@ -2766,27 +2782,112 @@ async function refreshHotelAttachments(dayKey,mountId){
     <button class="btn" type="button" onclick="openHotelAttachment('${x.id}',true)">⬇</button>
     <button class="btn" type="button" style="color:var(--danger)" onclick="deleteHotelAttachment('${x.id}','${dayKey}','${mountId}')">✕</button>
    </div>
-  </div>`).join(""):'<div class="notice">Nenhuma reserva anexada ainda.</div>'
- }catch(e){box.innerHTML=`<div class="notice">${esc(e.message||"Não foi possível carregar as reservas.")}</div>`}
+  </div>`).join(""):'<div class="notice">Nenhuma reserva anexada ainda.</div>';
+  return
+ }
+ if(st.error){
+  box.innerHTML=`<div class="hotel-attachment-status error"><span>${esc(st.error)}</span><button class="btn small" type="button" onclick="refreshHotelAttachments('${dayKey}','${mountId}',true)">Tentar novamente</button></div>`;
+  return
+ }
+ box.innerHTML='<div class="hotel-attachment-status"><span>Carregando anexos…</span></div>'
 }
+
+async function refreshHotelAttachments(dayKey,mountId,force=false){
+ const box=document.getElementById(mountId);if(!box||isViewer())return;
+ const now=Date.now();
+ const st=hotelAttachmentState[dayKey]||(hotelAttachmentState[dayKey]={loaded:false,loading:false,items:[],error:"",updatedAt:0});
+
+ // Se já temos a lista recente, apenas renderiza. Não pisca "Carregando" a cada polling.
+ if(!force&&st.loaded&&now-(st.updatedAt||0)<60000){
+  renderHotelAttachmentList(dayKey,mountId);
+  return
+ }
+
+ // Nunca dispara duas consultas iguais ao mesmo tempo.
+ if(st.loading){
+  renderHotelAttachmentList(dayKey,mountId);
+  return
+ }
+
+ st.loading=true;st.error="";
+ // Só mostra "Carregando" quando ainda não existe uma lista válida em memória.
+ if(!st.loaded)renderHotelAttachmentList(dayKey,mountId);
+
+ try{
+  const r=await attachmentFetch(ATTACH_FN+"?action=list&day_key="+encodeURIComponent(dayKey));
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(data.error||"Não foi possível carregar as reservas");
+  st.items=data.attachments||[];
+  st.loaded=true;
+  st.updatedAt=Date.now();
+  st.error=""
+ }catch(e){
+  // Se já havia dados, mantém os anexos visíveis em vez de substituir por um loader/erro.
+  if(!st.loaded)st.error=e.message||"Não foi possível carregar as reservas."
+ }finally{
+  st.loading=false;
+  renderHotelAttachmentList(dayKey,mountId)
+ }
+}
+
 async function uploadHotelAttachments(dayKey,input,mountId){
  if(isViewer())return viewerNotice();
  const files=[...(input?.files||[])];if(!files.length)return;
  const info=HOTEL_STAYS[dayKey]||{name:"Hospedagem"};
+ const row=input?.closest(".hotel-upload-row");
+ const btn=row?.querySelector(".btn");
+ const hint=row?.querySelector("small");
+ const originalBtn=btn?.textContent||"＋ Adicionar anexo";
+ const originalHint=hint?.textContent||"PDF ou imagem • até 10 MB por arquivo";
+
+ attachmentBusy=true;
+ if(btn)btn.disabled=true;
+ if(hint)hint.classList.add("hotel-upload-progress");
  setSync("saving","🟡 Enviando reserva…");
+
  try{
+  let sent=0;
   for(let i=0;i<files.length;i++){
    const file=files[i];
    if(!["application/pdf","image/jpeg","image/png","image/webp"].includes(file.type)){alert(`"${file.name}" não é PDF ou imagem.`);continue}
    if(file.size>10*1024*1024){alert(`"${file.name}" tem mais de 10 MB.`);continue}
-   const fd=new FormData();fd.append("day_key",dayKey);fd.append("label",info.name);fd.append("file",file);
+
+   if(btn)btn.textContent=`Enviando ${i+1}/${files.length}…`;
+   if(hint)hint.textContent=`${file.name} • aguarde o envio terminar`;
+
+   const fd=new FormData();
+   fd.append("day_key",dayKey);fd.append("label",info.name);fd.append("file",file);
    const r=await attachmentFetch(ATTACH_FN+"?action=upload",{method:"POST",body:fd});
-   const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Falha ao enviar anexo")
+   const data=await r.json().catch(()=>({}));
+   if(!r.ok)throw new Error(data.error||"Falha ao enviar anexo");
+   sent++
   }
-  await refreshHotelAttachments(dayKey,mountId);setSync("ok","🟢 Sincronizado")
- }catch(e){setSync("offline","🔴 Falha no anexo");alert(e.message||"Não foi possível enviar a reserva.")}
- finally{input.value=""}
+
+  // Atualiza uma única vez depois do upload, sem entrar no ciclo de loaders.
+  const st=hotelAttachmentState[dayKey]||(hotelAttachmentState[dayKey]={});
+  st.loaded=false;st.loading=false;st.error="";st.updatedAt=0;
+  if(btn)btn.textContent="Atualizando lista…";
+  if(hint)hint.textContent=sent?`${sent} ${sent===1?"arquivo enviado":"arquivos enviados"}`:"Nenhum arquivo válido enviado";
+  await refreshHotelAttachments(dayKey,mountId,true);
+  setSync("ok","🟢 Sincronizado")
+ }catch(e){
+  setSync("offline","🔴 Falha no anexo");
+  alert(e.message||"Não foi possível enviar a reserva.");
+  // Se havia lista anterior, ela continua preservada.
+  renderHotelAttachmentList(dayKey,mountId)
+ }finally{
+  attachmentBusy=false;
+  input.value="";
+  if(btn){btn.disabled=false;btn.textContent=originalBtn}
+  if(hint){
+   setTimeout(()=>{
+    hint.textContent=originalHint;
+    hint.classList.remove("hotel-upload-progress")
+   },1200)
+  }
+ }
 }
+
 async function openHotelAttachment(id,download=false){
  if(isViewer())return viewerNotice();
  const popup=download?null:window.open("about:blank","_blank");
@@ -2806,7 +2907,9 @@ async function deleteHotelAttachment(id,dayKey,mountId){
  try{
   const r=await attachmentFetch(ATTACH_FN+"?action=delete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});
   const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Falha ao excluir");
-  await refreshHotelAttachments(dayKey,mountId)
+  const st=hotelAttachmentState[dayKey]||(hotelAttachmentState[dayKey]={});
+  st.loaded=false;st.loading=false;st.updatedAt=0;st.error="";
+  await refreshHotelAttachments(dayKey,mountId,true)
  }catch(e){alert(e.message||"Não foi possível excluir o anexo.")}
 }
 function renderHotelSection(dayKey){
@@ -2816,6 +2919,7 @@ function renderHotelSection(dayKey){
  section.style.display="block";
  document.getElementById("dayHotelName").textContent=info.name;
  document.getElementById("dayHotelPeriod").textContent=info.period;
+ renderHotelAttachmentList(dayKey,"dayHotelAttachments");
  refreshHotelAttachments(dayKey,"dayHotelAttachments")
 }
 
