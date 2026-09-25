@@ -1201,7 +1201,7 @@ const DIARY_FN=SUPA+"/functions/v1/trip-diary-auth";
 const DIARY_VIEW_FN=SUPA+"/functions/v1/trip-diary-view";
 const ATTACH_FN=SUPA+"/functions/v1/trip-day-attachments-auth";
 const AUTH_STORE="foz_auth_session_v1",LAST_USER_STORE="foz_last_auth_user";
-const CACHE="foz_shared_v43",QUEUE="foz_ops_v43";
+const CACHE="foz_shared_v44",QUEUE="foz_ops_v44";
 let authData=null,authRole="",authName="",appStarted=false,pollTimer=null;
 let H={apikey:KEY,Authorization:"Bearer "+KEY,"Content-Type":"application/json"};
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -1432,7 +1432,7 @@ const uid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxx
 let state={items:[],days:[],dayChecklist:[],expenses:[],products:[],stores:[],notes:[],tickets:[],settings:{usd_amount:0,usd_rate:0,ars_amount:0,ars_rate:0,fuel_price:6.10,consumption:14.10,local_km:200}};
 let diaryPosts=[],diaryUnlocked=false,diaryFilter="all",diaryAuthor=localStorage.getItem("foz_diary_author")||"",diaryDraftDay="",diaryQueuedFiles=[];
 
-let pollBusy=false,queueBusy=false,typing=false,storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
+let pollBusy=false,queueBusy=false,typing=false,openStoreEditId=null,storeDay="sun",currentDayKey=null,paraguayDayKey=null,diaryReturnContext="main",diaryReturnKey="";
 
 const DEFAULT_PENDING=[
 ["p01","Remédio Néli",false,10],["p02","Remédio Lina",false,20],["p03","Lavar carro",false,30],["p04","Comprar ração (gatos e cachorros)",false,40],
@@ -1534,7 +1534,7 @@ function upsert(table,body,conflict){enqueue({method:"POST",path:table+"?on_conf
 function removeRow(table,query){enqueue({method:"DELETE",path:table+"?"+query})}
 
 async function fetchAll(){
- if(pollBusy||typing||qload().length||queueBusy)return;pollBusy=true;
+ if(pollBusy||typing||openStoreEditId||qload().length||queueBusy)return;pollBusy=true;
  try{
   const [items,days,dayChecklist,expenses,settings,products,stores,notes,tickets]=await Promise.all([
    request("trip_items?trip_id=eq."+TRIP+"&category=in.(pending,gift)&order=category.asc,sort_order.asc"),
@@ -2448,7 +2448,7 @@ function deleteProduct(id){state.products=state.products.filter(p=>p.id!==id);ca
 function selectStoreDay(day){storeDay=day;renderStores()}
 function storeTagPickerHtml(selected=[]){
  const set=new Set(Array.isArray(selected)?selected:[]);
- return STORE_TAGS.map(tag=>`<label class="store-tag-choice"><input type="checkbox" value="${esc(tag)}" ${set.has(tag)?"checked":""}><span>${esc(tag)}</span></label>`).join("")
+ return STORE_TAGS.map(tag=>`<label class="store-tag-choice"><input type="checkbox" value="${esc(tag)}" ${set.has(tag)?"checked":""} onfocus="typing=true" onblur="typing=false"><span>${esc(tag)}</span></label>`).join("")
 }
 function renderNewStoreTags(selected=[]){
  const box=document.getElementById("newStoreTags");if(box)box.innerHTML=storeTagPickerHtml(selected)
@@ -2593,11 +2593,16 @@ async function deleteParaguayStore(id){
  if(isViewer())return viewerNotice();
  const s=(state.stores||[]).find(x=>x.id===id);if(!s)return;
  if(!confirm(`Excluir ${s.name} da lista de lojas?`))return;
+ if(openStoreEditId===id)openStoreEditId=null;
  state.stores=state.stores.filter(x=>x.id!==id);cache();renderStores();renderProducts();fillStoreCatalogSelect();
  removeRow("paraguay_stores","id=eq."+encodeURIComponent(id)+"&trip_id=eq."+TRIP)
 }
 function toggleStoreEdit(id){
- const panel=document.getElementById("storeEdit-"+id);if(panel)panel.classList.toggle("show")
+ openStoreEditId=openStoreEditId===id?null:id;
+ renderStores();
+ if(openStoreEditId){
+  setTimeout(()=>document.getElementById("storeEdit-"+id)?.scrollIntoView({behavior:"smooth",block:"nearest"}),40)
+ }
 }
 function saveStoreEdit(id){
  if(isViewer())return viewerNotice();
@@ -2608,6 +2613,7 @@ function saveStoreEdit(id){
  s.weekday=get("weekday");s.saturday=get("saturday");s.sunday=get("sunday");s.thursday=get("thursday");
  s.close_sun=parseCloseMinutes(s.sunday);s.close_thu=parseCloseMinutes(s.thursday||s.weekday);
  s.updated_at=new Date().toISOString();
+ openStoreEditId=null;
  cache();upsert("paraguay_stores",s,"id");renderStores();renderProducts()
 }
 
@@ -2641,18 +2647,18 @@ function renderStores(){
     <button class="store-edit-btn" type="button" onclick="toggleStoreEdit('${s.id}')">✏️ Editar horário</button>
    </div>
 
-   <div id="storeEdit-${s.id}" class="store-edit-panel">
+   <div id="storeEdit-${s.id}" class="store-edit-panel ${openStoreEditId===s.id?"show":""}">
     <div class="store-edit-grid">
-      <label class="field">Segmento<select id="segment-${s.id}">${STORE_SEGMENTS.map(v=>`<option value="${esc(v)}" ${v===(s.segment||"Outros")?"selected":""}>${esc(v)}</option>`).join("")}</select></label>
+      <label class="field">Segmento<select id="segment-${s.id}" onfocus="typing=true" onblur="typing=false">${STORE_SEGMENTS.map(v=>`<option value="${esc(v)}" ${v===(s.segment||"Outros")?"selected":""}>${esc(v)}</option>`).join("")}</select></label>
       <div class="store-tags-editor">
         <span>O que a loja vende?</span>
         <div id="tags-${s.id}" class="store-tag-picker">${storeTagPickerHtml(s.tags||[])}</div>
-        <label class="field" style="margin-top:7px">Tags extras<input id="customtags-${s.id}" value="${esc((s.tags||[]).filter(t=>!STORE_TAGS.includes(t)).join(", "))}" placeholder="Ex.: papelaria, presentes"></label>
+        <label class="field" style="margin-top:7px">Tags extras<input id="customtags-${s.id}" onfocus="typing=true" onblur="typing=false" value="${esc((s.tags||[]).filter(t=>!STORE_TAGS.includes(t)).join(", "))}" placeholder="Ex.: papelaria, presentes"></label>
       </div>
-      <label class="field">Segunda a sexta<input id="weekday-${s.id}" value="${esc(s.weekday||"")}" placeholder="Ex.: 07:00–16:00"></label>
-      <label class="field">Sábado<input id="saturday-${s.id}" value="${esc(s.saturday||"")}" placeholder="Ex.: 07:00–15:00"></label>
-      <label class="field">Domingo<input id="sunday-${s.id}" value="${esc(s.sunday||"")}" placeholder="Ex.: 08:00–12:00 ou Fechado"></label>
-      <label class="field">Quinta-feira<input id="thursday-${s.id}" value="${esc(s.thursday||"")}" placeholder="Ex.: 07:00–16:00"></label>
+      <label class="field">Segunda a sexta<input id="weekday-${s.id}" onfocus="typing=true" onblur="typing=false" value="${esc(s.weekday||"")}" placeholder="Ex.: 07:00–16:00"></label>
+      <label class="field">Sábado<input id="saturday-${s.id}" onfocus="typing=true" onblur="typing=false" value="${esc(s.saturday||"")}" placeholder="Ex.: 07:00–15:00"></label>
+      <label class="field">Domingo<input id="sunday-${s.id}" onfocus="typing=true" onblur="typing=false" value="${esc(s.sunday||"")}" placeholder="Ex.: 08:00–12:00 ou Fechado"></label>
+      <label class="field">Quinta-feira<input id="thursday-${s.id}" onfocus="typing=true" onblur="typing=false" value="${esc(s.thursday||"")}" placeholder="Ex.: 07:00–16:00"></label>
     </div>
     <div class="store-add-actions">
       <button class="btn green small" type="button" onclick="saveStoreEdit('${s.id}')">Salvar horário</button>
